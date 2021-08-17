@@ -67,5 +67,11 @@ def FirstScreenSetup():
     current_display.currentScreen = firstScreen
     current_display.currentButtons = firstScreen.buttons
 
+""" import easygui
+Soubory:
+file = easygui.fileopenbox()
+Složky:
+dir = easygui.diropenbox();
+"""
 
 
