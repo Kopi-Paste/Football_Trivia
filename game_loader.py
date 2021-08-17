@@ -41,27 +41,67 @@ class Button:
 class UserInputButton(Button):
     def __init__(self, file, x_axis, y_axis, width, height):
         super().__init__(file, x_axis, y_axis, width, height)
-        self.userInput = ""
         self.clickedOn = False
+        self.cursorPosition = 0
         try:
-            self.font = pygame.font.Font(fontFile, 20)
+            self.font = pygame.font.Font(fontFile, 25)
         except:
-            self.font = pygame.font.Font(None, 20)
+            self.font = pygame.font.Font(None, 25)
+        self.userInput = ""
 
     def BlitOnScreen(self, display):
-        text = self.font.render(self.userInput, True, (255, 255, 255), (0, 0, 0))
-        textRect = text.get_rect()
-        textRect.center = ((self.XAxis + self.width) / 2, (self.YAxis + self.height) / 2)
-        display.blit(text, textRect)
         super(UserInputButton, self).BlitOnScreen(display)
+        text = self.font.render(self.userInput, True, (0, 0, 0), (255, 255, 255))
+        textRect = text.get_rect()
+        textRect.center = (self.XAxis + self.width / 2, self.YAxis + self.height / 2)
+        display.blit(text, textRect)
 
+    def ShowCursor(self, replaceMode = 0):
+        self.userInput = self.userInput.replace("|", "")
+        if replaceMode == 0:
+            self.userInput = self.userInput[:self.cursorPosition] + '|' + self.userInput[self.cursorPosition:]
+        elif replaceMode == 1:
+            self.userInput = self.userInput[:self.cursorPosition - 1] + '|' + self.userInput[self.cursorPosition:]
+        elif replaceMode == 2:
+            self.userInput = self.userInput[:self.cursorPosition] + '|' + self.userInput[self.cursorPosition + 1:]
+
+    def HideCursor(self):
+            self.userInput = self.userInput.replace('|', "")
 
     def AddChar(self, key):
-        char = pygame.key.name(key)
-        self.userInput += char.decode('unicode_escape')
+        if (len(self.userInput)) == 50 or key == "|":
+            return
+        oldString = self.userInput
+        self.userInput = self.userInput.replace("|", key)
+        self.cursorPosition += len(self.userInput) - len(oldString) + 1
+        self.ShowCursor()
 
 
+    def RemovePrevious(self):
+        if self.cursorPosition == 0:
+            return
+        self.ShowCursor(1)
+        self.MoveCursorLeft()
 
+
+    def RemoveNext(self):
+        if self.cursorPosition == len(self.userInput) - 1:
+            return
+        self.ShowCursor(2)
+
+    def MoveCursorLeft(self, max = False):
+        if (max or self.cursorPosition == 0):
+            self.cursorPosition = 0
+        else:
+            self.cursorPosition -= 1
+        self.ShowCursor()
+
+    def MoveCursorRight(self, max = False):
+        if (max or self.cursorPosition == len(self.userInput) - 1):
+            self.cursorPosition = len(self.userInput) - 1
+        else:
+            self.cursorPosition += 1
+        self.ShowCursor()
 
 def GeneralSetup():
     pygame.display.set_caption("Football Trivia")
@@ -99,8 +139,8 @@ def AddQuestionButtonsLoader():
         try:
             buttonList.append(UserInputButton(emptyButtonFile, coordinates[i][0], coordinates[i][1], standardButtonWidth, standardButtonHeight))
         except:
-            pygame.quit()
-            exit("Not found file " + emptyButtonFile)
+           pygame.quit()
+           exit("Not found file " + emptyButtonFile)
     return buttonList
 
 def AddQuestionScreenSetup():
