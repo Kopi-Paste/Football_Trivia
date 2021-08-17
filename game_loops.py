@@ -1,9 +1,13 @@
 import pygame
 
+import game_loader
+
 
 def GameLoop(state):
     if state == 0: # První obrazovka
         return MainMenuLoop()
+    elif state == 4:
+        return AddQuestionLoop()
 
 
 
@@ -19,7 +23,8 @@ def MainMenuLoop():
             if clickedButtonNumber == 0:
                 pass
             elif clickedButtonNumber == 1:
-                pass
+                game_loader.AddQuestionScreenSetup()
+                return 4
             elif clickedButtonNumber == 2:
                 pass
             elif clickedButtonNumber == 3:
@@ -36,7 +41,13 @@ def LossGameLoop():
     pass
 
 def AddQuestionLoop():
-    pass
+    import current_display
+    current_display.DisplayScreen()
+    pygame.display.update()
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            return -1
+    return 4
 
 def ImportExportLoop():
     pass
