@@ -1,5 +1,6 @@
 import pygame
 import os
+import csv
 
 
 windowWidth = 1280
@@ -10,6 +11,9 @@ standardButtonHeight = 114
 mainMenuButtonsDir = "assets/Menu_buttons/"
 iconFile = "assets/football.png"
 emptyButtonFile = "assets/emptyButton.png"
+confirmButtonFile = "assets/confirmButton.png"
+cancelButtonFile = "assets/cancelButton.png"
+questionsFile = "questions.csv"
 fontFile = "assets/cappungFont.otf"  # by 7NTypes ze stránky dafont.com
 
 class Screen:
@@ -69,7 +73,7 @@ class UserInputButton(Button):
             self.userInput = self.userInput.replace('|', "")
 
     def AddChar(self, key):
-        if (len(self.userInput)) == 50 or key == "|":
+        if (len(self.userInput)) == 40 or key == "|":
             return
         oldString = self.userInput
         self.userInput = self.userInput.replace("|", key)
@@ -103,6 +107,16 @@ class UserInputButton(Button):
             self.cursorPosition += 1
         self.ShowCursor()
 
+class Question:
+    def __init__(self, question, correctAnswer, badAnswers):
+        self.question = question
+        self.correctAnswer = correctAnswer
+        self.badAnswers = badAnswers
+    def WriteToCSV(self):
+        with open(questionsFile, mode='a', newline='', encoding='utf-8') as questions:
+            questionWriter = csv.writer(questions)
+            questionWriter.writerow([self.question, self.correctAnswer, self.badAnswers[0], self.badAnswers[1], self.badAnswers[2]])
+
 def GeneralSetup():
     pygame.display.set_caption("Football Trivia")
     try:
@@ -135,12 +149,14 @@ def FirstScreenSetup():
 def AddQuestionButtonsLoader():
     buttonList = list()
     coordinates = [((windowWidth - standardButtonWidth) / 2, 200), (200, 400), (windowWidth - 200 - standardButtonWidth, 400), (200, 600), (windowWidth - 200 - standardButtonWidth, 600)]
-    for i in range(0, 5):
+    for i in range(5):
         try:
             buttonList.append(UserInputButton(emptyButtonFile, coordinates[i][0], coordinates[i][1], standardButtonWidth, standardButtonHeight))
         except:
            pygame.quit()
            exit("Not found file " + emptyButtonFile)
+    buttonList.append(Button(cancelButtonFile, 100, 800, standardButtonWidth, standardButtonHeight))
+    buttonList.append(Button(confirmButtonFile, windowWidth - 100 - standardButtonWidth, 800, standardButtonWidth, standardButtonHeight))
     return buttonList
 
 def AddQuestionScreenSetup():
@@ -156,5 +172,4 @@ file = easygui.fileopenbox()
 Složky:
 dir = easygui.diropenbox();
 """
-
 

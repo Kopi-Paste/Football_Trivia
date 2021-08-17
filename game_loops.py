@@ -50,15 +50,23 @@ def AddQuestionLoop():
         elif event.type == pygame.MOUSEBUTTONUP:
             clickedButtonNumber = current_display.DetermineClickedButton(pygame.mouse.get_pos())
             for i in range(len(current_display.currentButtons)):
-                if i == clickedButtonNumber:
+                if i == clickedButtonNumber and i < 5:
                     current_display.currentButtons[i].clickedOn = True
                     current_display.currentButtons[i].ShowCursor()
-                else:
+                elif i < 5:
                     current_display.currentButtons[i].clickedOn = False
                     current_display.currentButtons[i].HideCursor()
+                elif clickedButtonNumber == 5:
+                    game_loader.FirstScreenSetup()
+                    return 0
+                elif clickedButtonNumber == 6:
+                    game_loader.Question(current_display.currentButtons[0].userInput, current_display.currentButtons[1].userInput, (current_display.currentButtons[2].userInput, current_display.currentButtons[3].userInput, current_display.currentButtons[4].userInput)).WriteToCSV()
+                    game_loader.FirstScreenSetup()
+                    return 0
+
         elif event.type == pygame.KEYDOWN:
             for button in current_display.currentButtons:
-                if (button.clickedOn):
+                if isinstance(button, game_loader.UserInputButton) and button.clickedOn:
                     print(event.key)
                     if event.key == pygame.K_BACKSPACE:
                         button.RemovePrevious()
