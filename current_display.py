@@ -4,9 +4,9 @@ currentScreen = None
 
 currentButtons = None
 
+
 def DisplayScreen():
     currentScreen.Draw()
-
 
 def DetermineClickedButton(mousePosition):
     i = 0

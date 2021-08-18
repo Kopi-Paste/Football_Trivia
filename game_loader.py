@@ -14,19 +14,23 @@ emptyButtonFile = "assets/emptyButton.png"
 confirmButtonFile = "assets/confirmButton.png"
 cancelButtonFile = "assets/cancelButton.png"
 questionsFile = "questions.csv"
+addQuestionLabelsFile = "labels/addQuestionLabels.csv"
 fontFile = "assets/cappungFont.otf"  # by 7NTypes ze stránky dafont.com
 
 class Screen:
-    def __init__(self, screenDisplay, background, buttons):
+    def __init__(self, screenDisplay, background, buttons, labelsList):
         self.display = screenDisplay
         self.background = background
         self.buttons = buttons
+        self.labels = labelsList
 
     def Draw(self):
         self.display.fill(self.background)
         for button in self.buttons:
             button.BlitOnScreen(self.display)
-
+        if self.labels is not None:
+            for label in self.labels:
+                label.Show(self.display)
 
 class Button:
     def __init__(self, file, x_axis, y_axis, width, height):
@@ -57,12 +61,14 @@ class UserInputButton(Button):
         super(UserInputButton, self).BlitOnScreen(display)
         textParts = list()
         for i in range((len(self.userInput) // 35) + 1):
-            textParts.append(self.userInput[i * 35:((i + 1) * 35)])
+            if i != 4:
+                textParts.append(self.userInput[i * 35:((i + 1) * 35)])
         for i in range(len(textParts)):
             if i != len(textParts) - 1:
-                while not textParts[i].endswith(' '):
-                    textParts[i + 1] = textParts[i][-1] + textParts[i + 1]
-                    textParts[i] = textParts[i][:-1]
+                if " " in textParts[i]:
+                    while not (textParts[i].endswith(' ')):
+                        textParts[i + 1] = textParts[i][-1] + textParts[i + 1]
+                        textParts[i] = textParts[i][:-1]
 
             text = self.font.render(textParts[i], True, (0, 0, 0), (255, 255, 255))
             textRect = text.get_rect()
@@ -82,7 +88,7 @@ class UserInputButton(Button):
             self.userInput = self.userInput.replace('|', "")
 
     def AddChar(self, key):
-        if (len(self.userInput)) == 160 or key == "|":
+        if (len(self.userInput)) == 140 or key == "|":
             return
         oldString = self.userInput
         self.userInput = self.userInput.replace("|", key)
@@ -115,6 +121,19 @@ class UserInputButton(Button):
         else:
             self.cursorPosition += 1
         self.ShowCursor()
+
+class Label:
+    def __init__(self, text, text_size, x_axis, y_axis):
+        try:
+            self.font = pygame.font.Font(fontFile, text_size)
+        except:
+            self.font = pygame.font.Font(None, text_size)
+        self.text = self.font.render(text, True, (255, 255, 255), (71, 174, 56))
+        self.textRect = self.text.get_rect()
+        self.textRect.center = (x_axis, y_axis)
+
+    def Show(self, display):
+        display.blit(self.text, self.textRect)
 
 class Question:
     def __init__(self, question, correctAnswer, badAnswers):
@@ -151,9 +170,20 @@ def MainMenuButtonsLoader():
 def FirstScreenSetup():
     import current_display
     firstScreenDisplay = pygame.display.set_mode((windowWidth, windowHeight))
-    firstScreen = Screen(firstScreenDisplay, (71, 174, 56), MainMenuButtonsLoader())
+    firstScreen = Screen(firstScreenDisplay, (71, 174, 56), MainMenuButtonsLoader(), None)
     current_display.currentScreen = firstScreen
     current_display.currentButtons = firstScreen.buttons
+
+def AddQuestionLabelsLoader():
+    labelsList = list()
+    with open(addQuestionLabelsFile, mode='r', encoding='utf-8-sig') as labels:
+        labels = csv.reader(labels, delimiter=';')
+        for row in labels:
+           labelsList.append(Label(row[0], int(row[1]), int(row[2]), int(row[3])))
+    return labelsList
+
+
+
 
 def AddQuestionButtonsLoader():
     buttonList = list()
@@ -171,7 +201,7 @@ def AddQuestionButtonsLoader():
 def AddQuestionScreenSetup():
     import current_display
     addQuestionScreenDisplay = pygame.display.set_mode((windowWidth, windowHeight))
-    addQuestionScreen = Screen(addQuestionScreenDisplay, (71, 174, 56), AddQuestionButtonsLoader())
+    addQuestionScreen = Screen(addQuestionScreenDisplay, (71, 174, 56), AddQuestionButtonsLoader(), AddQuestionLabelsLoader())
     current_display.currentScreen = addQuestionScreen
     current_display.currentButtons = addQuestionScreen.buttons
 
