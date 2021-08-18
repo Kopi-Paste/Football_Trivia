@@ -6,8 +6,16 @@ import game_loader
 def GameLoop(state):
     if state == 0: # První obrazovka
         return MainMenuLoop()
+    elif state == 1:
+        return PlayGameLoop()
+    elif state == 2:
+        return WinGameLoop()
+    elif state == 3:
+        return LossGameLoop()
     elif state == 4:
         return AddQuestionLoop()
+    elif state == 5:
+        return BestScoresLoop()
 
 
 
@@ -21,7 +29,9 @@ def MainMenuLoop():
         elif event.type == pygame.MOUSEBUTTONUP:
             clickedButtonNumber = current_display.DetermineClickedButton(pygame.mouse.get_pos())
             if clickedButtonNumber == 0:
-                pass
+                game_loader.GameScreenSetup()
+                return 1
+
             elif clickedButtonNumber == 1:
                 game_loader.AddQuestionScreenSetup()
                 return 4
@@ -32,7 +42,27 @@ def MainMenuLoop():
     return 0
 
 def PlayGameLoop():
-    pass
+    import current_display
+    current_display.DisplayScreen()
+    pygame.display.update()
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            return -1
+        elif event.type == pygame.MOUSEBUTTONUP:
+            clickedButtonNumber = current_display.DetermineClickedButton(pygame.mouse.get_pos())
+            if clickedButtonNumber == current_display.currentQuestions[current_display.currentQuestion].correctAnswerIndex:
+                if current_display.currentQuestion != 14:
+                    current_display.currentQuestion += 1
+                    newQuestionButtons = current_display.currentQuestions[current_display.currentQuestion].ToButtons()
+                    current_display.currentScreen.buttons = newQuestionButtons
+                    current_display.currentButtons = newQuestionButtons
+                    return 1
+                else:
+                    return 0  #Výhra
+            elif clickedButtonNumber != 0 and clickedButtonNumber != -1:
+                game_loader.FirstScreenSetup() #Prohra
+                return 0
+    return 1
 
 def WinGameLoop():
     pass
@@ -91,6 +121,6 @@ def AddQuestionLoop():
 
     return 4
 
-def ImportExportLoop():
+def BestScoresLoop():
     pass
 

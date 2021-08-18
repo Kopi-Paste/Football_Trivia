@@ -4,6 +4,10 @@ currentScreen = None
 
 currentButtons = None
 
+currentQuestions = None
+
+currentQuestion = 0
+
 
 def DisplayScreen():
     currentScreen.Draw()
@@ -14,3 +18,5 @@ def DetermineClickedButton(mousePosition):
         if button.MouseCollision(mousePosition):
             return i
         i += 1
+    return -1
+

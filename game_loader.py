@@ -1,7 +1,9 @@
 import pygame
 import os
 import csv
+import random
 
+import current_display
 
 windowWidth = 1280
 windowHeight = 1040
@@ -15,7 +17,12 @@ confirmButtonFile = "assets/confirmButton.png"
 cancelButtonFile = "assets/cancelButton.png"
 questionsFile = "questions.csv"
 addQuestionLabelsFile = "labels/addQuestionLabels.csv"
-fontFile = "assets/cappungFont.otf"  # by 7NTypes ze stránky dafont.com
+fontFile = "assets/cappung_Font.otf"  # by 7NTypes ze stránky dafont.com
+
+questionButtonCoordinates = [((windowWidth - standardButtonWidth) / 2, 200), (200, 400),
+                             (windowWidth - 200 - standardButtonWidth, 400), (200, 600),
+                             (windowWidth - 200 - standardButtonWidth, 600)]
+
 
 class Screen:
     def __init__(self, screenDisplay, background, buttons, labelsList):
@@ -140,6 +147,8 @@ class Question:
         self.question = question
         self.correctAnswer = correctAnswer
         self.badAnswers = badAnswers
+        self.correctAnswerIndex = 1
+
     def WriteToCSV(self):
         try:
             with open(questionsFile, mode='a', newline='', encoding='utf-8') as questions:
@@ -148,6 +157,17 @@ class Question:
         except:
             pygame.quit()
             exit("Not found file" + questionsFile)
+    def ToButtons(self):
+        buttons = list()
+        texts = [self.correctAnswer, self.badAnswers[0], self.badAnswers[1], self.badAnswers[2]]
+        random.shuffle(texts)
+        texts.insert(0, self.question)
+        self.correctAnswerIndex = texts.index(self.correctAnswer)
+        print(self.correctAnswerIndex)
+        for i in range(5):
+            buttons.append(ButtonWithText(emptyButtonFile, questionButtonCoordinates[i][0], questionButtonCoordinates[i][1], standardButtonWidth, standardButtonHeight, texts[i]))
+        return buttons
+
 
 def GeneralSetup():
     pygame.display.set_caption("Football Trivia")
@@ -195,10 +215,9 @@ def AddQuestionLabelsLoader():
 
 def AddQuestionButtonsLoader():
     buttonList = list()
-    coordinates = [((windowWidth - standardButtonWidth) / 2, 200), (200, 400), (windowWidth - 200 - standardButtonWidth, 400), (200, 600), (windowWidth - 200 - standardButtonWidth, 600)]
     for i in range(5):
         try:
-            buttonList.append(ButtonWithText(emptyButtonFile, coordinates[i][0], coordinates[i][1], standardButtonWidth, standardButtonHeight, ""))
+            buttonList.append(ButtonWithText(emptyButtonFile, questionButtonCoordinates[i][0], questionButtonCoordinates[i][1], standardButtonWidth, standardButtonHeight, ""))
         except:
            pygame.quit()
            exit("Not found file " + emptyButtonFile)
@@ -221,10 +240,25 @@ def AddQuestionScreenSetup():
     current_display.currentScreen = addQuestionScreen
     current_display.currentButtons = addQuestionScreen.buttons
 
-""" import easygui
-Soubory:
-file = easygui.fileopenbox()
-Složky:
-dir = easygui.diropenbox();
-"""
+def LoadQuestions():
+    questionsList = list()
+    try:
+        with open(questionsFile, mode='r', encoding='utf-8-sig') as questions:
+            questions = csv.reader(questions, delimiter=';')
+            for row in questions:
+                questionsList.append(Question(row[0], row[1], (row[2], row[3], row[4])))
+    except:
+        pygame.quit()
+        exit("Not found file: " + questionsFile)
+    random.shuffle(questionsList)
+    questionsList = questionsList[:15]
+    return questionsList
 
+def GameScreenSetup():
+    import current_display
+    current_display.currentQuestions = LoadQuestions()
+    current_display.currentQuestion = 0
+    playGameScreenDisplay = pygame.display.set_mode((windowWidth, windowHeight))
+    playGameScreen = Screen(playGameScreenDisplay, (71, 174, 56), current_display.currentQuestions[0].ToButtons(), None)
+    current_display.currentScreen = playGameScreen
+    current_display.currentButtons = playGameScreen.buttons
