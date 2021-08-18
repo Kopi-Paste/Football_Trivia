@@ -46,8 +46,8 @@ class Button:
     def MouseCollision(self, mousePosition):
         return self.XAxis <= mousePosition[0] <= (self.XAxis + self.width) and self.YAxis <= mousePosition[1] <= (self.YAxis + self.height)
 
-class UserInputButton(Button):
-    def __init__(self, file, x_axis, y_axis, width, height):
+class ButtonWithText(Button):
+    def __init__(self, file, x_axis, y_axis, width, height, text):
         super().__init__(file, x_axis, y_axis, width, height)
         self.clickedOn = False
         self.cursorPosition = 0
@@ -55,14 +55,14 @@ class UserInputButton(Button):
             self.font = pygame.font.Font(fontFile, 25)
         except:
             self.font = pygame.font.Font(None, 25)
-        self.userInput = ""
+        self.text = text
 
     def BlitOnScreen(self, display):
-        super(UserInputButton, self).BlitOnScreen(display)
+        super(ButtonWithText, self).BlitOnScreen(display)
         textParts = list()
-        for i in range((len(self.userInput) // 35) + 1):
+        for i in range((len(self.text) // 35) + 1):
             if i != 4:
-                textParts.append(self.userInput[i * 35:((i + 1) * 35)])
+                textParts.append(self.text[i * 35:((i + 1) * 35)])
         for i in range(len(textParts)):
             if i != len(textParts) - 1:
                 if " " in textParts[i]:
@@ -76,23 +76,23 @@ class UserInputButton(Button):
             display.blit(text, textRect)
 
     def ShowCursor(self, replaceMode = 0):
-        self.userInput = self.userInput.replace("|", "")
+        self.text = self.text.replace("|", "")
         if replaceMode == 0:
-            self.userInput = self.userInput[:self.cursorPosition] + '|' + self.userInput[self.cursorPosition:]
+            self.text = self.text[:self.cursorPosition] + '|' + self.text[self.cursorPosition:]
         elif replaceMode == 1:
-            self.userInput = self.userInput[:self.cursorPosition - 1] + '|' + self.userInput[self.cursorPosition:]
+            self.text = self.text[:self.cursorPosition - 1] + '|' + self.text[self.cursorPosition:]
         elif replaceMode == 2:
-            self.userInput = self.userInput[:self.cursorPosition] + '|' + self.userInput[self.cursorPosition + 1:]
+            self.text = self.text[:self.cursorPosition] + '|' + self.text[self.cursorPosition + 1:]
 
     def HideCursor(self):
-            self.userInput = self.userInput.replace('|', "")
+            self.text = self.text.replace('|', "")
 
     def AddChar(self, key):
-        if (len(self.userInput)) == 140 or key == "|":
+        if (len(self.text)) == 140 or key == "|":
             return
-        oldString = self.userInput
-        self.userInput = self.userInput.replace("|", key)
-        self.cursorPosition += len(self.userInput) - len(oldString) + 1
+        oldString = self.text
+        self.text = self.text.replace("|", key)
+        self.cursorPosition += len(self.text) - len(oldString) + 1
         self.ShowCursor()
 
 
@@ -104,7 +104,7 @@ class UserInputButton(Button):
 
 
     def RemoveNext(self):
-        if self.cursorPosition == len(self.userInput) - 1:
+        if self.cursorPosition == len(self.text) - 1:
             return
         self.ShowCursor(2)
 
@@ -116,8 +116,8 @@ class UserInputButton(Button):
         self.ShowCursor()
 
     def MoveCursorRight(self, max = False):
-        if (max or self.cursorPosition == len(self.userInput) - 1):
-            self.cursorPosition = len(self.userInput) - 1
+        if max or self.cursorPosition == len(self.text) - 1:
+            self.cursorPosition = len(self.text) - 1
         else:
             self.cursorPosition += 1
         self.ShowCursor()
@@ -141,9 +141,13 @@ class Question:
         self.correctAnswer = correctAnswer
         self.badAnswers = badAnswers
     def WriteToCSV(self):
-        with open(questionsFile, mode='a', newline='', encoding='utf-8') as questions:
-            questionWriter = csv.writer(questions, delimiter=';')
-            questionWriter.writerow([self.question, self.correctAnswer, self.badAnswers[0], self.badAnswers[1], self.badAnswers[2]])
+        try:
+            with open(questionsFile, mode='a', newline='', encoding='utf-8') as questions:
+                questionWriter = csv.writer(questions, delimiter=';')
+                questionWriter.writerow([self.question, self.correctAnswer, self.badAnswers[0], self.badAnswers[1], self.badAnswers[2]])
+        except:
+            pygame.quit()
+            exit("Not found file" + questionsFile)
 
 def GeneralSetup():
     pygame.display.set_caption("Football Trivia")
@@ -176,10 +180,14 @@ def FirstScreenSetup():
 
 def AddQuestionLabelsLoader():
     labelsList = list()
-    with open(addQuestionLabelsFile, mode='r', encoding='utf-8-sig') as labels:
-        labels = csv.reader(labels, delimiter=';')
-        for row in labels:
-           labelsList.append(Label(row[0], int(row[1]), int(row[2]), int(row[3])))
+    try:
+        with open(addQuestionLabelsFile, mode='r', encoding='utf-8-sig') as labels:
+            labels = csv.reader(labels, delimiter=';')
+            for row in labels:
+               labelsList.append(Label(row[0], int(row[1]), int(row[2]), int(row[3])))
+    except:
+        pygame.quit()
+        exit("Not found file: " + addQuestionLabelsFile)
     return labelsList
 
 
@@ -190,12 +198,20 @@ def AddQuestionButtonsLoader():
     coordinates = [((windowWidth - standardButtonWidth) / 2, 200), (200, 400), (windowWidth - 200 - standardButtonWidth, 400), (200, 600), (windowWidth - 200 - standardButtonWidth, 600)]
     for i in range(5):
         try:
-            buttonList.append(UserInputButton(emptyButtonFile, coordinates[i][0], coordinates[i][1], standardButtonWidth, standardButtonHeight))
+            buttonList.append(ButtonWithText(emptyButtonFile, coordinates[i][0], coordinates[i][1], standardButtonWidth, standardButtonHeight, ""))
         except:
            pygame.quit()
            exit("Not found file " + emptyButtonFile)
-    buttonList.append(Button(cancelButtonFile, 100, 800, standardButtonWidth, standardButtonHeight))
-    buttonList.append(Button(confirmButtonFile, windowWidth - 100 - standardButtonWidth, 800, standardButtonWidth, standardButtonHeight))
+    try:
+        buttonList.append(Button(cancelButtonFile, 100, 800, standardButtonWidth, standardButtonHeight))
+    except:
+        pygame.quit()
+        exit("Not found file " + cancelButtonFile)
+    try:
+        buttonList.append(Button(confirmButtonFile, windowWidth - 100 - standardButtonWidth, 800, standardButtonWidth, standardButtonHeight))
+    except:
+        pygame.quit()
+        exit("Not found file " + confirmButtonFile)
     return buttonList
 
 def AddQuestionScreenSetup():

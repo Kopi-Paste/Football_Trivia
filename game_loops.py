@@ -60,13 +60,16 @@ def AddQuestionLoop():
                     game_loader.FirstScreenSetup()
                     return 0
                 elif clickedButtonNumber == 6:
-                    game_loader.Question(current_display.currentButtons[0].userInput, current_display.currentButtons[1].userInput, (current_display.currentButtons[2].userInput, current_display.currentButtons[3].userInput, current_display.currentButtons[4].userInput)).WriteToCSV()
+                    for i in range(5):
+                        if current_display.currentButtons[i].text == "":
+                            return 4
+                    game_loader.Question(current_display.currentButtons[0].text, current_display.currentButtons[1].text, (current_display.currentButtons[2].text, current_display.currentButtons[3].text, current_display.currentButtons[4].text)).WriteToCSV()
                     game_loader.FirstScreenSetup()
                     return 0
 
         elif event.type == pygame.KEYDOWN:
             for button in current_display.currentButtons:
-                if isinstance(button, game_loader.UserInputButton) and button.clickedOn:
+                if isinstance(button, game_loader.ButtonWithText) and button.clickedOn:
                     if event.key == pygame.K_BACKSPACE:
                         button.RemovePrevious()
                     elif event.key == pygame.K_DELETE:
