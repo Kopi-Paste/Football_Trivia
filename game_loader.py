@@ -55,10 +55,19 @@ class UserInputButton(Button):
 
     def BlitOnScreen(self, display):
         super(UserInputButton, self).BlitOnScreen(display)
-        text = self.font.render(self.userInput, True, (0, 0, 0), (255, 255, 255))
-        textRect = text.get_rect()
-        textRect.center = (self.XAxis + self.width / 2, self.YAxis + self.height / 2)
-        display.blit(text, textRect)
+        textParts = list()
+        for i in range((len(self.userInput) // 35) + 1):
+            textParts.append(self.userInput[i * 35:((i + 1) * 35)])
+        for i in range(len(textParts)):
+            if i != len(textParts) - 1:
+                while not textParts[i].endswith(' '):
+                    textParts[i + 1] = textParts[i][-1] + textParts[i + 1]
+                    textParts[i] = textParts[i][:-1]
+
+            text = self.font.render(textParts[i], True, (0, 0, 0), (255, 255, 255))
+            textRect = text.get_rect()
+            textRect.center = (self.XAxis + self.width / 2, self.YAxis + 20 + i * 25)
+            display.blit(text, textRect)
 
     def ShowCursor(self, replaceMode = 0):
         self.userInput = self.userInput.replace("|", "")
@@ -73,7 +82,7 @@ class UserInputButton(Button):
             self.userInput = self.userInput.replace('|', "")
 
     def AddChar(self, key):
-        if (len(self.userInput)) == 40 or key == "|":
+        if (len(self.userInput)) == 160 or key == "|":
             return
         oldString = self.userInput
         self.userInput = self.userInput.replace("|", key)
@@ -114,7 +123,7 @@ class Question:
         self.badAnswers = badAnswers
     def WriteToCSV(self):
         with open(questionsFile, mode='a', newline='', encoding='utf-8') as questions:
-            questionWriter = csv.writer(questions)
+            questionWriter = csv.writer(questions, delimiter=';')
             questionWriter.writerow([self.question, self.correctAnswer, self.badAnswers[0], self.badAnswers[1], self.badAnswers[2]])
 
 def GeneralSetup():

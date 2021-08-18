@@ -67,7 +67,6 @@ def AddQuestionLoop():
         elif event.type == pygame.KEYDOWN:
             for button in current_display.currentButtons:
                 if isinstance(button, game_loader.UserInputButton) and button.clickedOn:
-                    print(event.key)
                     if event.key == pygame.K_BACKSPACE:
                         button.RemovePrevious()
                     elif event.key == pygame.K_DELETE:
