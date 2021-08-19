@@ -52,15 +52,20 @@ def PlayGameLoop():
             clickedButtonNumber = current_display.DetermineClickedButton(pygame.mouse.get_pos())
             if clickedButtonNumber == current_display.currentQuestions[current_display.currentQuestion].correctAnswerIndex:
                 if current_display.currentQuestion != 14:
+                    current_display.currentScreen.HideArrow(current_display.currentQuestion)
                     current_display.currentQuestion += 1
                     newQuestionButtons = current_display.currentQuestions[current_display.currentQuestion].ToButtons()
                     current_display.currentScreen.buttons = newQuestionButtons
                     current_display.currentButtons = newQuestionButtons
+                    current_display.currentScreen.ShowArrow(current_display.currentQuestion)
                     return 1
                 else:
+                    game_loader.WriteScore(15)
+                    game_loader.FirstScreenSetup()
                     return 0  #Výhra
             elif clickedButtonNumber != 0 and clickedButtonNumber != -1:
-                game_loader.FirstScreenSetup() #Prohra
+                game_loader.WriteScore(current_display.currentQuestion)
+                game_loader.FirstScreenSetup() #Prohra nebo návrat do menu
                 return 0
     return 1
 
@@ -91,9 +96,9 @@ def AddQuestionLoop():
                     return 0
                 elif clickedButtonNumber == 6:
                     for i in range(5):
-                        if current_display.currentButtons[i].text == "":
+                        if current_display.currentButtons[i].textGraphic == "":
                             return 4
-                    game_loader.Question(current_display.currentButtons[0].text, current_display.currentButtons[1].text, (current_display.currentButtons[2].text, current_display.currentButtons[3].text, current_display.currentButtons[4].text)).WriteToCSV()
+                    game_loader.Question(current_display.currentButtons[0].textGraphic, current_display.currentButtons[1].textGraphic, (current_display.currentButtons[2].textGraphic, current_display.currentButtons[3].textGraphic, current_display.currentButtons[4].textGraphic)).WriteToCSV()
                     game_loader.FirstScreenSetup()
                     return 0
 

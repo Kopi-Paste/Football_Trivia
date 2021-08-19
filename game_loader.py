@@ -9,14 +9,24 @@ windowWidth = 1280
 windowHeight = 1040
 standardButtonWidth = 361
 standardButtonHeight = 114
+wideButtonWidth = 801
+wideButtonHeight = 50
+
+background = (71, 174, 56)
+
+scores = [0, 100, 200, 300, 500, 1000, 2000, 4000, 8000, 16000, 32000, 64000, 125000, 250000, 500000, 1000000]
 
 mainMenuButtonsDir = "assets/Menu_buttons/"
 iconFile = "assets/football.png"
 emptyButtonFile = "assets/emptyButton.png"
+wideEmptyButtonFile = "assets/wideEmptyButtonFile"
 confirmButtonFile = "assets/confirmButton.png"
 cancelButtonFile = "assets/cancelButton.png"
+backToMenuButtonFile = "assets/backToMenuButton.png"
 questionsFile = "questions.csv"
+highscoresFile = "highscores.txt"
 addQuestionLabelsFile = "labels/addQuestionLabels.csv"
+playGameLabelsFile = "labels/playGameLabels.csv"
 fontFile = "assets/Caveat-VariableFont_wght.ttf"  # Ze stránky Google Fonts
 
 questionButtonCoordinates = [((windowWidth - standardButtonWidth) / 2, 200), (200, 400),
@@ -38,6 +48,12 @@ class Screen:
         if self.labels is not None:
             for label in self.labels:
                 label.Show(self.display)
+    def ShowArrow(self, currentQuestion):
+        self.labels[15 - currentQuestion].AddArrow()
+
+    def HideArrow(self, currentQuestion):
+        self.labels[15 - currentQuestion].HideArrow()
+
 
 class Button:
     def __init__(self, file, x_axis, y_axis, width, height):
@@ -135,12 +151,21 @@ class Label:
             self.font = pygame.font.Font(fontFile, text_size)
         except:
             self.font = pygame.font.Font(None, text_size)
-        self.text = self.font.render(text, True, (255, 255, 255), (71, 174, 56))
-        self.textRect = self.text.get_rect()
+        self.text = text
+        self.textGraphic = self.font.render(self.text, True, (255, 255, 255), background)
+        self.textRect = self.textGraphic.get_rect()
         self.textRect.center = (x_axis, y_axis)
 
     def Show(self, display):
-        display.blit(self.text, self.textRect)
+        display.blit(self.textGraphic, self.textRect)
+
+    def AddArrow(self):
+        self.text = "->   " + self.text
+        self.textGraphic = self.font.render(self.text, True, (255, 255, 255), background)
+
+    def HideArrow(self):
+        self.text = self.text[4:]
+        self.textGraphic = self.font.render(self.text, True, (255, 255, 255), background)
 
 class Question:
     def __init__(self, question, correctAnswer, badAnswers):
@@ -156,14 +181,13 @@ class Question:
                 questionWriter.writerow([self.question, self.correctAnswer, self.badAnswers[0], self.badAnswers[1], self.badAnswers[2]])
         except:
             pygame.quit()
-            exit("Not found file" + questionsFile)
+            exit("Not found file " + questionsFile)
     def ToButtons(self):
         buttons = list()
         texts = [self.correctAnswer, self.badAnswers[0], self.badAnswers[1], self.badAnswers[2]]
         random.shuffle(texts)
         texts.insert(0, self.question)
         self.correctAnswerIndex = texts.index(self.correctAnswer)
-        print(self.correctAnswerIndex)
         for i in range(5):
             buttons.append(ButtonWithText(emptyButtonFile, questionButtonCoordinates[i][0], questionButtonCoordinates[i][1], standardButtonWidth, standardButtonHeight, texts[i]))
         return buttons
@@ -194,7 +218,7 @@ def MainMenuButtonsLoader():
 def FirstScreenSetup():
     import current_display
     firstScreenDisplay = pygame.display.set_mode((windowWidth, windowHeight))
-    firstScreen = Screen(firstScreenDisplay, (71, 174, 56), MainMenuButtonsLoader(), None)
+    firstScreen = Screen(firstScreenDisplay, background, MainMenuButtonsLoader(), None)
     current_display.currentScreen = firstScreen
     current_display.currentButtons = firstScreen.buttons
 
@@ -209,8 +233,6 @@ def AddQuestionLabelsLoader():
         pygame.quit()
         exit("Not found file: " + addQuestionLabelsFile)
     return labelsList
-
-
 
 
 def AddQuestionButtonsLoader():
@@ -233,12 +255,14 @@ def AddQuestionButtonsLoader():
         exit("Not found file " + confirmButtonFile)
     return buttonList
 
+
 def AddQuestionScreenSetup():
     import current_display
     addQuestionScreenDisplay = pygame.display.set_mode((windowWidth, windowHeight))
-    addQuestionScreen = Screen(addQuestionScreenDisplay, (71, 174, 56), AddQuestionButtonsLoader(), AddQuestionLabelsLoader())
+    addQuestionScreen = Screen(addQuestionScreenDisplay, background, AddQuestionButtonsLoader(), AddQuestionLabelsLoader())
     current_display.currentScreen = addQuestionScreen
     current_display.currentButtons = addQuestionScreen.buttons
+
 
 def LoadQuestions():
     questionsList = list()
@@ -254,11 +278,42 @@ def LoadQuestions():
     questionsList = questionsList[:15]
     return questionsList
 
+
+def PlayGameLabels():
+    labelsList = list()
+    i = 0
+    try:
+        with open(playGameLabelsFile, mode='r', encoding='utf-8-sig') as labels:
+            labels = csv.reader(labels, delimiter=';')
+            for row in labels:
+                labelsList.append(Label(row[0], int(row[1]), int(row[2]), int(row[3])))
+                i += 1
+    except:
+        pygame.quit()
+        exit("File not found: " + playGameLabelsFile)
+    return labelsList
+
+
+
 def GameScreenSetup():
     import current_display
     current_display.currentQuestions = LoadQuestions()
     current_display.currentQuestion = 0
+    buttons = current_display.currentQuestions[0].ToButtons()
+    print(len(buttons))
+    buttons.append(Button(backToMenuButtonFile, (windowWidth - standardButtonWidth) / 2, 800, standardButtonWidth, standardButtonHeight))
+    print(len(buttons))
     playGameScreenDisplay = pygame.display.set_mode((windowWidth, windowHeight))
-    playGameScreen = Screen(playGameScreenDisplay, (71, 174, 56), current_display.currentQuestions[0].ToButtons(), None)
+    playGameScreen = Screen(playGameScreenDisplay, background, buttons, PlayGameLabels())
+    playGameScreen.ShowArrow(0)
     current_display.currentScreen = playGameScreen
     current_display.currentButtons = playGameScreen.buttons
+
+def WriteScore(currentQuestion):
+    i = 0
+    try:
+        with open(highscoresFile, mode='a', encoding='utf-8-sig', newline='') as highscores:
+            highscores.write("\n" + str(scores[currentQuestion]))
+    except Exception as e:
+        print(e)
+
