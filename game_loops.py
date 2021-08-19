@@ -60,20 +60,69 @@ def PlayGameLoop():
                     current_display.currentScreen.ShowArrow(current_display.currentQuestion)
                     return 1
                 else:
-                    game_loader.WriteScore(15)
+                    game_loader.WriteScore(1000000)
                     game_loader.FirstScreenSetup()
                     return 0  #Výhra
+            elif clickedButtonNumber == 5:
+                current_display.score = game_loader.scores[current_display.currentQuestion]
+                game_loader.LossGameScreenSetup(current_display.currentQuestions[current_display.currentQuestion].correctAnswer, current_display.score)
+                return 3
             elif clickedButtonNumber != 0 and clickedButtonNumber != -1:
-                game_loader.WriteScore(current_display.currentQuestion)
-                game_loader.FirstScreenSetup() #Prohra nebo návrat do menu
-                return 0
+                current_display.score = game_loader.scores[current_display.currentQuestion - current_display.currentQuestion % 5]
+                game_loader.LossGameScreenSetup(current_display.currentQuestions[current_display.currentQuestion].correctAnswer, current_display.score) #Prohra
+                return 3
     return 1
 
 def WinGameLoop():
     pass
 
 def LossGameLoop():
-    pass
+    import current_display
+    current_display.DisplayScreen()
+    pygame.display.update()
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            return -1
+        elif event.type == pygame.MOUSEBUTTONUP:
+            clickedButtonNumber = current_display.DetermineClickedButton(pygame.mouse.get_pos())
+            if clickedButtonNumber == 0:
+                current_display.currentButtons[0].clickedOn = True
+                current_display.currentButtons[0].ShowCursor()
+            elif clickedButtonNumber == 1:
+                current_display.currentButtons[0].clickedOn = False
+                current_display.currentButtons[0].HideCursor()
+                game_loader.FirstScreenSetup()
+                return 0
+            elif clickedButtonNumber == 2:
+                current_display.currentButtons[0].clickedOn = False
+                current_display.currentButtons[0].HideCursor()
+                if current_display.currentButtons[0].text == "":
+                    return 3
+                game_loader.WriteScore(current_display.currentButtons[0].text, current_display.score)
+                game_loader.FirstScreenSetup()
+                return 0
+            elif clickedButtonNumber == -1:
+                current_display.currentButtons[0].clickedOn = False
+                current_display.currentButtons[0].HideCursor()
+        elif event.type == pygame.KEYDOWN:
+            if current_display.currentButtons[0].clickedOn:
+                if event.key == pygame.K_BACKSPACE:
+                    current_display.currentButtons[0].RemovePrevious()
+                elif event.key == pygame.K_DELETE:
+                    current_display.currentButtons[0].RemoveNext()
+                elif event.key == pygame.K_LEFT:
+                    current_display.currentButtons[0].MoveCursorLeft()
+                elif event.key == pygame.K_RIGHT:
+                    current_display.currentButtons[0].MoveCursorRight()
+                elif event.key == pygame.K_HOME:
+                    current_display.currentButtons[0].MoveCursorLeft(True)
+                elif event.key == pygame.K_END:
+                    current_display.currentButtons[0].MoveCursorRight(True)
+                elif event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER:
+                    current_display.currentButtons[0].HideCursor()
+                else:
+                    current_display.currentButtons[0].AddChar(event.unicode)
+    return 3
 
 def AddQuestionLoop():
     import current_display

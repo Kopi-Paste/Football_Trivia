@@ -3,8 +3,6 @@ import os
 import csv
 import random
 
-import current_display
-
 windowWidth = 1280
 windowHeight = 1040
 standardButtonWidth = 361
@@ -19,14 +17,15 @@ scores = [0, 100, 200, 300, 500, 1000, 2000, 4000, 8000, 16000, 32000, 64000, 12
 mainMenuButtonsDir = "assets/Menu_buttons/"
 iconFile = "assets/football.png"
 emptyButtonFile = "assets/emptyButton.png"
-wideEmptyButtonFile = "assets/wideEmptyButtonFile"
+wideEmptyButtonFile = "assets/wideEmptyButton.png"
 confirmButtonFile = "assets/confirmButton.png"
 cancelButtonFile = "assets/cancelButton.png"
 backToMenuButtonFile = "assets/backToMenuButton.png"
 questionsFile = "questions.csv"
-highscoresFile = "highscores.txt"
+highscoresFile = "highscores.csv"
 addQuestionLabelsFile = "labels/addQuestionLabels.csv"
 playGameLabelsFile = "labels/playGameLabels.csv"
+lossGameLabelsFile = "labels/lossGameLabels.csv"
 fontFile = "assets/Caveat-VariableFont_wght.ttf"  # Ze stránky Google Fonts
 
 questionButtonCoordinates = [((windowWidth - standardButtonWidth) / 2, 200), (200, 400),
@@ -49,10 +48,10 @@ class Screen:
             for label in self.labels:
                 label.Show(self.display)
     def ShowArrow(self, currentQuestion):
-        self.labels[15 - currentQuestion].AddArrow()
+        self.labels[14 - currentQuestion].AddArrow()
 
     def HideArrow(self, currentQuestion):
-        self.labels[15 - currentQuestion].HideArrow()
+        self.labels[14 - currentQuestion].HideArrow()
 
 
 class Button:
@@ -70,10 +69,12 @@ class Button:
         return self.XAxis <= mousePosition[0] <= (self.XAxis + self.width) and self.YAxis <= mousePosition[1] <= (self.YAxis + self.height)
 
 class ButtonWithText(Button):
-    def __init__(self, file, x_axis, y_axis, width, height, text):
+    def __init__(self, file, x_axis, y_axis, width, height, text, maximumChars, maximumPerRow):
         super().__init__(file, x_axis, y_axis, width, height)
         self.clickedOn = False
         self.cursorPosition = 0
+        self.maximumChars = maximumChars
+        self.maximumPerRow = maximumPerRow
         try:
             self.font = pygame.font.Font(fontFile, 25)
         except:
@@ -83,9 +84,9 @@ class ButtonWithText(Button):
     def BlitOnScreen(self, display):
         super(ButtonWithText, self).BlitOnScreen(display)
         textParts = list()
-        for i in range((len(self.text) // 34) + 1):
+        for i in range((len(self.text) // self.maximumPerRow) + 1):
             if i != 4:
-                textParts.append(self.text[i * 34:((i + 1) * 34)])
+                textParts.append(self.text[i * self.maximumPerRow:((i + 1) * self.maximumPerRow )])
         for i in range(len(textParts)):
             if i != len(textParts) - 1:
                 if " " in textParts[i]:
@@ -111,7 +112,7 @@ class ButtonWithText(Button):
             self.text = self.text.replace('|', "")
 
     def AddChar(self, key):
-        if (len(self.text)) == 100 or key == "|":
+        if (len(self.text)) == self.maximumChars or key == "|":
             return
         oldString = self.text
         self.text = self.text.replace("|", key)
@@ -189,7 +190,10 @@ class Question:
         texts.insert(0, self.question)
         self.correctAnswerIndex = texts.index(self.correctAnswer)
         for i in range(5):
-            buttons.append(ButtonWithText(emptyButtonFile, questionButtonCoordinates[i][0], questionButtonCoordinates[i][1], standardButtonWidth, standardButtonHeight, texts[i]))
+            buttons.append(ButtonWithText(emptyButtonFile, questionButtonCoordinates[i][0], questionButtonCoordinates[i][1], standardButtonWidth, standardButtonHeight, texts[i], 100, 33))
+        buttons.append(Button(backToMenuButtonFile, (windowWidth - standardButtonWidth) / 2, 800, standardButtonWidth,
+                              standardButtonHeight))
+
         return buttons
 
 
@@ -204,7 +208,7 @@ def GeneralSetup():
     FirstScreenSetup()
 
 def MainMenuButtonsLoader():
-    buttonList = list();
+    buttonList = list()
     i = 0
     for file in os.listdir(mainMenuButtonsDir):
         try:
@@ -239,18 +243,18 @@ def AddQuestionButtonsLoader():
     buttonList = list()
     for i in range(5):
         try:
-            buttonList.append(ButtonWithText(emptyButtonFile, questionButtonCoordinates[i][0], questionButtonCoordinates[i][1], standardButtonWidth, standardButtonHeight, ""))
-        except:
+            buttonList.append(ButtonWithText(emptyButtonFile, questionButtonCoordinates[i][0], questionButtonCoordinates[i][1], standardButtonWidth, standardButtonHeight, "", 100, 34))
+        except FileNotFoundError:
            pygame.quit()
            exit("Not found file " + emptyButtonFile)
     try:
         buttonList.append(Button(cancelButtonFile, 100, 800, standardButtonWidth, standardButtonHeight))
-    except:
+    except FileNotFoundError:
         pygame.quit()
         exit("Not found file " + cancelButtonFile)
     try:
         buttonList.append(Button(confirmButtonFile, windowWidth - 100 - standardButtonWidth, 800, standardButtonWidth, standardButtonHeight))
-    except:
+    except FileNotFoundError:
         pygame.quit()
         exit("Not found file " + confirmButtonFile)
     return buttonList
@@ -300,20 +304,67 @@ def GameScreenSetup():
     current_display.currentQuestions = LoadQuestions()
     current_display.currentQuestion = 0
     buttons = current_display.currentQuestions[0].ToButtons()
-    print(len(buttons))
-    buttons.append(Button(backToMenuButtonFile, (windowWidth - standardButtonWidth) / 2, 800, standardButtonWidth, standardButtonHeight))
-    print(len(buttons))
     playGameScreenDisplay = pygame.display.set_mode((windowWidth, windowHeight))
     playGameScreen = Screen(playGameScreenDisplay, background, buttons, PlayGameLabels())
     playGameScreen.ShowArrow(0)
     current_display.currentScreen = playGameScreen
     current_display.currentButtons = playGameScreen.buttons
 
-def WriteScore(currentQuestion):
-    i = 0
+def WriteScore(nickname, score):
+    from datetime import datetime
+    # i = 0
+    # try:
+    #     with open(highscoresFile, mode='a', encoding='utf-8-sig', newline='') as highscores:
+    #         highscores.write("\n" + nickname + "\t" + str(score))
+    # except FileNotFoundError:
+    #     pass
     try:
-        with open(highscoresFile, mode='a', encoding='utf-8-sig', newline='') as highscores:
-            highscores.write("\n" + str(scores[currentQuestion]))
-    except Exception as e:
-        print(e)
+        from operator import itemgetter
+        scoresList = list()
+        with open(highscoresFile, mode='r', encoding='utf-8-sig') as highscores:
+            highscores = csv.reader(highscores, delimiter=';')
+            for row in highscores:
+                scoresList.append([row[0], int(row[1]), row[2]])
+        scoresList.append([nickname, score, datetime.now().strftime("%d.%m.%Y %H:%M")])
+        sortedScores = sorted(scoresList, key=itemgetter(1), reverse=True)
+        with open(highscoresFile, mode='w', encoding='utf-8-sig', newline='') as highscores:
+            highscores = csv.writer(highscores, delimiter=';',)
+            for row in sortedScores:
+                highscores.writerow(row)
+    except FileNotFoundError:
+        pass
+    except PermissionError:
+        pass
 
+def LossGameButtons():
+    buttonsList = list()
+    buttonsList.append(ButtonWithText(wideEmptyButtonFile, (windowWidth - wideButtonWidth) / 2, 400, wideButtonWidth, wideButtonHeight, "", 50, 50))
+    buttonsList.append(Button(backToMenuButtonFile, 200, 600, standardButtonWidth, standardButtonHeight))
+    buttonsList.append(Button(confirmButtonFile, windowWidth - 200 - standardButtonWidth, 600, standardButtonWidth, standardButtonHeight))
+    return buttonsList
+
+def LossGameLabels(correctAnswer, score):
+    labelsList = list()
+    try:
+        with open(lossGameLabelsFile, mode='r', encoding='utf-8-sig') as labelsFile:
+            labelsFile = csv.reader(labelsFile, delimiter=';')
+            i = 0
+            for row in labelsFile:
+                if i == 1:
+                    row[0] += correctAnswer
+                if i == 2:
+                    row[0] += str(score)
+                labelsList.append(Label(row[0], int(row[1]), int(row[2]), int(row[3])))
+                i += 1
+    except FileNotFoundError:
+        pygame.quit()
+        exit("Not found file: " + lossGameLabelsFile)
+
+    return labelsList
+
+def LossGameScreenSetup(correctAnswer, score):
+    import current_display
+    lossGameScreenDisplay = pygame.display.set_mode((windowWidth, windowHeight))
+    lossGameScreen = Screen(lossGameScreenDisplay, background, LossGameButtons(), LossGameLabels(correctAnswer, score))
+    current_display.currentScreen = lossGameScreen
+    current_display.currentButtons = lossGameScreen.buttons

@@ -8,6 +8,8 @@ currentQuestions = None
 
 currentQuestion = 0
 
+score = 0
+
 
 def DisplayScreen():
     currentScreen.Draw()
