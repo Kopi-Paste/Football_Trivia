@@ -57,7 +57,7 @@ Jaké je křestní jméno francouzského obránce Lengleta?;Clément;Antoine;Cla
 Jaké je skutečné křestní jméno fotbalového kouče Pepa Guardioly?;Josep;Joaquín;Pedro;Felipe
 Jaké národnosti byl Ferenc Puskás?;Maďarsko;Bulharsko;Rumunsko;Rakousko
 Jaké národnosti je Diego Carlos?;Brazílie;Kolumbie;Argentina;Španělsko
-Jaké národnosti je fotbalista Juan Cuadrado?;Kolubie;Peru;Mexiko;Chile
+Jaké národnosti je fotbalista Juan Cuadrado?;Kolumbie;Peru;Mexiko;Chile
 Jaké národnosti je fotbalový obránce Dejan Lovren?;Chorvatsko;Srbsko;Černá Hora;Bosna a Hercegovina
 Jaké národnosti je fotbalový útočník Bas Dost?;Nizozemsko;Portugalsko;Dánsko;Belgie
 Jaké národnosti je fotbalový útočník Dominic Calvert-Lewin?;Anglie;USA;Skotsko;Jamajka
@@ -189,7 +189,7 @@ Kdo vyhrál MS ve fotbale 2006?;Itálie;Brazílie;Španělsko;Francie
 Kdo vyhrál MS ve fotbale 2010?;Španělsko;Itálie;Německo;Francie
 Kdo vyhrál MS ve fotbale 2014?;Německo;Itálie;Brazílie;Francie
 Kdo vyhrál MS ve fotbale 2018?;Francie;Německo;Chorvatsko;Brazílie
-Kolik gólů vstřelil Robert Lewandowski během devíti minut v jednom zápase Bundesligy proti Wolfsburgu?;5;4;6;9
+Kolik gólů vstřelil Robert Lewandowski během devíti minut v zápase Bundesligy proti Wolfsburgu?;5;4;6;9
 Kolikátí skončili Češi na ME ve fotbale 1996?;2.;1.;3.;4.
 Která automobilka vlastní německý fotbalový klub VfL Wolfsburg?;Volkswagen;Mercedes;Audi;BMW
 Která barva je typická pro FK Jablonec?;Zelená;Modrá;Žlutá;Rudá
@@ -221,20 +221,19 @@ Který český hráč si připsal v UEFA Champions League nejvíce startů?;Petr
 Který fotbalový brankář si v historii anglické Premier League připsal nejvíce čistých kont?;Petr Čech;Kasper Schmeichel;David Seaman;David de Gea
 Který fotbalový klub je považován FIFA i FA za nejstarší?;Sheffield FC;Everton FC;Cork City;Oxford FC
 Který fotbalový tým má ve své sbírce nejvíce bundesligových titulů?;Bayern Mnichov;Schalke 04;Kaiserslautern;Borussia Dortmund
-Který hráč Atlética Madrid jako jediný neproměnil svůj pokus v penaltovém rozstřelu finále UEFA Champions League 2016?;Juanfran;Antoine Griezmann;Gabi;Saúl
 Který hráč byl nejlepším střelcem UEFA Champions League před Cristianem Ronaldem?;Raúl;Ruud van Nistelrooy;Thierry Henry;Filippo Inzaghi
 Který hráč Chelsea obléká číslo 28?;César Azpilicueta;Kurt Zouma;Jorginho;Emerson
-Který hráč Internazionale Milano si vstřelil ve finále UEFA Europa League 2019/2020 vlastní gól? (Sevilla FC 3:2 Internazionale Milano);Romelu Lukaku;Diego Godín;Alessandro Bastoni;Samir Handanović
+Který hráč Internazionale Milano si vstřelil ve finále UEFA Europa League 2019/2020 vlastní gól?;Romelu Lukaku;Diego Godín;Alessandro Bastoni;Samir Handanović
 Který hráč jako jediný v historii Československa obdržel Zlatý míč (Ballon d'Or)?;Josef Masopust;Antonín Panenka;Josef Bican;František Plánička
 Který hráč jako jediný vyhrál 3× Mistrovství světa ve fotbale?;Pelé;Sókrates;Ademir;Garrincha
 Který hráč je idolem Marca Reuse?;Tomáš Rosický;Ronaldinho;Zinedine Zidane;Lothar Matthäus
 Který hráč je kapitánem PSG?;Marquinhos;Thiago Silva;Keylor Navas;Marco Verratti
-Který hráč Liverpoolu FC měl na sobě kapitánskou pásku ve finále Ligy mistrů 2019? (Liverpool FC 2:0 Tottenham Hotspur);Jordan Henderson;Andrew Robertson;Roberto Firmino;Mohamed Salah
+Který hráč Liverpoolu FC měl na sobě kapitánskou pásku ve finále Ligy mistrů 2019?;Jordan Henderson;Andrew Robertson;Roberto Firmino;Mohamed Salah
 Který hráč nasázel v nejvyšší české fotbalové lize nejvíce hattricků?;David Lafata;Libor Došek;Horst Siegl;Milan Škoda
 Který hráč nastoupil v dresu AC Milan do nejvyššího počtu zápasů?;Paolo Maldini;Césare Maldini;Franco Baresi;Alessandro Costacurta
 Který hráč obdržel v historii španělské fotbalové ligy nejvíce červených karet?;Sergio Ramos;Fernando Amorebieta;David Navarro;Carlos Marchena
 Který hráč odehrál nejvíce zápasů za italskou fotbalovou reprezentaci?;Gianluigi Buffon;Paolo Maldini;Andrea Pirlo;Fabio Cannavaro
-Který hráč Realu Madrid zařídil ve finále Ligy mistrů 2014 proti Atléticu Madrid vyrovnání na 1:1 v nastaveném čase?;Sergio Ramos;Ángel Di María;Gareth Bale;Cristiano Ronaldo
+Který hráč Realu Madrid zařídil vyrovnání ve finále Ligy mistrů 2014 v nastaveném čase?;Sergio Ramos;Ángel Di María;Gareth Bale;Cristiano Ronaldo
 Který hráč rozhodl svým gólem finále EURO 2016? (Portugalsko 1:0 Francie);Éder;Cristiano Ronaldo;Ricardo Quaresma;Nani
 Který hráč se stal nejlepším střelcem na MS 1970 ve fotbale?;Gerd Müller;Teófilo Cubillas;Jairzinho;Anatolij Byšovec
 Který hráč si připsal nejvíce startů v dresu české fotbalové reprezentace?;Petr Čech;Tomáš Rosický;Milan Baroš;Tomáš Ujfaluši
@@ -293,8 +292,8 @@ Na jakém stadionu hraje své domácí zápasy fotbalový klub Valencia CF?;Mest
 Na jakém stadionu odehrála česká fotbalová reprezentace nejvíce utkání?;Generali Arena;Doosan Arena;Sinobo Stadium;Na Stínadlech
 Na kterém ostrově se narodil fotbalista Cristiano Ronaldo?;Madeira;Pico;Flores;Porto Santo
 Odchovancem kterého týmu je David De Gea?;Atlético Madrid;Manchester United;Real Madrid;FC Barcelona
-Pod kterým koučem získala FC Barcelona svoji první trofej Ligy mistrů/Poháru mistrů evropských zemí?;Johan Cruyff;Louis van Gaal;Frank Rijkaard;Pep Guardiola
-Proti kterému týmu vstřelil Diego Maradona ve čtvrtfinále MS 1986 ve fotbale gól rukou, známý jako Boží ruka?;Anglie;Brazílie;Francie;Uruguay
+Se kterým koučem získala FC Barcelona svoji první trofej Ligy mistrů/Poháru mistrů evropských zemí?;Johan Cruyff;Louis van Gaal;Frank Rijkaard;Pep Guardiola
+Proti kterému týmu vstřelil Diego Maradona na MS 1986 gól rukou, známý jako Boží ruka?;Anglie;Brazílie;Francie;Uruguay
 S jakým míčem se odehrálo EURO 2004?;Adidas Roteiro;Adidas Questra;Adidas Fevernova;Adidas Teamgeist
 V jaké zemi hraje fotbalový klub CA Osasuna?;Španělsko;Portugalsko;Francie;Itálie
 V jaké zemi najdeme fotbalový klub Fenerbahce?;Turecko;Rumunsko;Maďarsko;Bulharsko
@@ -372,9 +371,7 @@ Ze kterého týmu přestoupil roku 2002 Milan Baroš do Liverpoolu FC?;Baník Os
 Ze kterého týmu přišel do Barcelony fotbalový obránce Jordi Alba?;Valencia CF;Real Betis;Rayo Vallecano;RCD Mallorca
 Ze kterého týmu přišel do Bayernu Manuel Neuer?;Schalke 04;Borussia Dortmund;Bayer Leverkusen;VfB Stuttgart
 Ze kterého týmu přišel do Juventusu FC Pavel Nedvěd?;SS Lazio;Sparta Praha;Benfica Lisabon;Borussia Dortmund
-Čím se nechvalně proslavil obránce Dukly Praha Martin Chlumecký v sezóně 2018/19 české fotbalové ligy v utání proti Slovácku? (Dukla Praha 1:2 Slovácko);Oba góly, které jeho tým obdržel, byly jeho vlastní;Zranil tři protihráče;Obdržel červeou kartu v první minutě;Z výkonostních důvodů byl vystřídán v 10. minutě
 Co prohlásil fotbalový kouč José Mourinho na své první tiskové konferenci v Anglii?;I'm a Special One;We're Going to Win the League;I am José Mourinho and I Don't Change;God Must Really Think I'm a Great Guy
-Fotbalista Michel Platini se po konci kariéry vrátil ještě jednou na fotbalový trávník, aby si zahrál v přátelském utkání jednoho národního týmu, kterého?;Kuvajt;Tunisko;Lucembursko;Francie,,,,,,
 Hymna UEFA Champions League je zpívána ve třech jazycích, který mezi ně nepatří?;Španělština;Francoužština;Angličtina;Němčina
 Jak nazval José Mourinho svého rivala Arséna Wengera (mimo jiné)?;Specialist in Failure;No-trophy Man;Senile Idiot;The Loser
 Jak se jmenoval předchůdce dnešní Ligy Mistrů?;Pohár mistrů evropských zemí;Pohár UEFA;Pohár Evropy;Veletržní pohár
@@ -395,7 +392,7 @@ Jaké národnosti je Nicklas Bendtner?;Dánsko;Švédsko;Norsko;Německo
 Jakou zemi reprezentoval Florent Malouda?;Francie;Senegal;Mali;Gabon
 Jakou zemi reprezentoval Frédéric Kanouté?;Mali;Francie;Senegal;Španělsko
 Jakou zemi reprezentoval Lúcio?;Brazílie;Portugalsko;Intalie;Španělsko
-Jakou zemi reprezentoval Staley Matthews?;Anglii;Skotsko;Wales;Severní Irsko
+Jakou zemi reprezentoval Stanley Matthews?;Anglii;Skotsko;Wales;Severní Irsko
 Jakou zemi reprezentuje dlouholetý obránce CSKA Moskva Mário Fernandes?;Rusko;Brazílie;Španělsko;Portugalsko
 Jakou zemi reprezentuje fotbalový brankář Thomas Strakosha?;Albánie;Kosovo;Arménie;Severní Makedonie
 Jakou zemi reprezentuje fotbalový útočník Stevan Jovetić?;Černá Hora;Bosna a Hercegovina;Chorvatsko;Srbsko
@@ -431,7 +428,7 @@ Kdo je současným kapitánem West Hamu United?;Marc Noble;Łukasz Fabiański;De
 Kdo se stal nejlepším střelcem MS ve fotbale 1998?;Davor Šuker;Christian Vieri;Gabriel Batistuta;David Trézéguet
 Kdo skončil na druhém místě v anketě Zlatý míč (Ballon d'Or) 2003 za Pavlem Nedvědem?;Thierry Henry;Ronaldinho;Ronaldo;Paolo Maldini
 Kdo vstřelil jediný gól Brazílie v semifinále MS 2014? (Brazílie 1:7 Německo);Oscar;Neymar;Fred;David Luiz
-Kdo vstřelil jediný gól českého týmu ve finále EURO 1996 proti Německu? (Německo 2:1 AET Československo);Patrik Berger;Miroslav Kadlec;Karel Poborský;Pavel Nedvěd
+Kdo vstřelil jediný gól českého týmu ve finále EURO 1996 proti Německu?;Patrik Berger;Miroslav Kadlec;Karel Poborský;Pavel Nedvěd
 Kdo vstřelil nejrychlejší gól historie UEFA Champions League?;Roy Makaay;Alessandro Del Piero;Cristiano Ronaldo;Gilberto Silva
 Kdo vyhrál Ligu mistrů 1998/1999?;Manchester United;Real Madrid;Bayern Mnichov FC;Borussia Dortmund
 Kdo vyhrál Ligu mistrů 1999/2000?;Real Madrid;Bayern Mnichov FC;Valencia CF;Manchester United
@@ -503,29 +500,27 @@ Který anglický fotbalový tým hraje své domácí zápasy v Selhurst Parku?;C
 Který československý hráč se stal nejlepším střelcem MS ve fotbale 1934?;Oldřich Nejedlý;František Svoboda;Jiří Sobotka;Antonín Puč
 Který fotbalový tým hraje své domácí zápasy na stadionu Hillsborough?;Sheffield Wednesday;Liverpool FC;Everton FC;West Bromwich Albion
 Který fotbalový tým je doma na stadiónu Estádio da Luz?;Benfica Lisabon;Sporting Lisabon;FC Porto;Braga SC
-Který hráč Arsenalu FC vstřelil 4 góly v zápase Premier League sezóny 2008/09 proti Liverpoolu? (Arsenal 4:4 Liverpool);Andrej Aršavin;Robin van Persie;Nicklas Bendtner;Thierry Henry
+Který hráč Arsenalu FC vstřelil 4 góly v zápase Premier League proti Liverpoolu?;Andrej Aršavin;Robin van Persie;Nicklas Bendtner;Thierry Henry
 Který hráč je historicky nejdražší posilou Arsenalu FC?;Nicolas Pépé;Pierre-Emerick Aubameyang;Alexandre Lacazette;Mesut Özil
 Který hráč je historicky nejlepším střelcem německé reprezentace?;Miroslav Klose;Gerd Müller;Thomas Müller;Lukas Podolski
 Který hráč je nejdražší posilou v historii Liverpoolu FC?;Virgil van Dijk;Alisson Becker;Mohamed Salah;Naby Keïta
 Který hráč nastoupil v dresu Německa do největšího počtu zápasů?;Lothar Matthäus;Miroslav Klose;Philipp Lahm;Lukas Podolski
 Který hráč nastřílel nejvíce branek v derby pražských S?;Josef Bican;Antonín Puč;Josef Ludl;David Lafata
 Který hráč odehrál nejvíce zápasů na MS ve fotbale?;Lothar Matthäus;Miroslav Klose;Paolo Maldini;Pelé
-Který hráč PSG si v odvetě osmifinále UEFA Champions League 2016/17 vstřelil vlastní gól? (FC Barcelona 6:1 PSG);Layvin Kurzawa;Marco Verratti;Blaise Matuidi;Thiago Silva
+Který hráč PSG si v odvetě osmifinále UEFA Champions League 2016/17 vstřelil vlastní gól?;Layvin Kurzawa;Marco Verratti;Blaise Matuidi;Thiago Silva
 Který hráč se stal ve věku 38 let a 129 dní nejmladším vítězem Ligy mistrů?;Pep Guardiola;José Mourinho;Zinédine Zidane;Jürgen Klopp
 Který hráč si připsal celkově nejvíce asistencí v historii Premier League?;Ryan Giggs;Thierry Henry;Cesc Fàbregas;Mesut Özil
-Který hráč si zahrál ve věku 46 let a 281 dní za Manchester United a je tedy nejstarším hráčem, který kdy za Rudé ďábly nastoupil?;Billy Meredith;Joe Spence;Frank Barson;George Wall
 Který hráč v Leicesteru obléká číslo 10?;James Maddison;Jaime Vardy;Ayoze Peréz;Youri Tielemans
 Který hráč vstřelil jediný gól anglické reprezentace v osmifinále EURO 2016? (Anglie 1:2 Island);Wayne Rooney;Daniel Sturridge;Raheem Sterling;Harry Kane
-Který hráč vstřelil jediný gól Bayernu Mnichov ve finále UEFA Champions League 1999? (Manchester United 2:1 Bayern Mnichov);Mario Basler;Thomas Linke;Stefan Effenberg;Carsten Jancker
+Který hráč vstřelil jediný gól Bayernu Mnichov ve finále UEFA Champions League 1999?;Mario Basler;Thomas Linke;Stefan Effenberg;Carsten Jancker
 Který hráč vyhrál UEFA Champions League se třemi různými kluby?;Clarence Seedorf;Cristiano Ronaldo;Samuel Eto'o;Ricardo Carvalho
-Který hráč zajistil Německu dvěma góly vítězství ve finále ME 1996 ve fotbale? (Německo 2:1 Československo);Oliver Bierhoff;Jürgen Klinsmann;Stefan Kuntz;Mario Basler
+Který hráč zajistil Německu dvěma góly vítězství ve finále ME 1996 ve fotbale?;Oliver Bierhoff;Jürgen Klinsmann;Stefan Kuntz;Mario Basler
 Který hráč zaznamenal nejvíce startů v dresu Bayeru Leverkusen?;Stefan Kießling;Carsten Ramelow;Ulf Kirsten;Thomas Hörster
 Který hráč zaznamenal ve španělské La Lize nejvíce hattricků?;Lionel Messi;Cristiano Ronaldo;Telmo Zarra;Alfredo Di Stéfano
 Který hráč získal 14 titulů v české nejvyšší fotbalové soutěži v dresu Sparty?;Jiří Novotný;Michal Horňák;Jozef Chovanec;Horst Siegl
 Který hráč získal nejvíce trofejí Zlatý míč (Ballon d'Or)?;Lionel Messi;Pelé;Cristiano Ronaldo;Johan Cruyff
-Který kolumbijský fotbalista byl po návratu týmu do země zastřelen, protože si na MS ve fotbale 1994 vstřelil vlastní gól?;Andrés Escobar;Faustino Asprilla;Gabriel Gómez;Carlos Valderrama
 Který kouč dovedl Ajax k vítězství v UEFA Champions League?;Louis van Gaal;Johan Cruyff;Guus Hiddink;Dick Advocaat
-Který německý hráč neproměnil penaltu v penaltovém rozstřelu ve finále ME 1976 proti Československu?;Uli Hoeneß;Dieter Müller;Franz Beckenbauer;Gerd Müller
+Který německý hráč neproměnil penaltu v rozstřelu ve finále ME 1976 proti Československu?;Uli Hoeneß;Dieter Müller;Franz Beckenbauer;Gerd Müller
 Který rozhodčí odpískal v české fotbalové lize nejvíce zápasů?;Pavel Královec;Radek Příhoda;Libor Kovařík;Pavel Franěk
 Který slovenský tým si zahrál v sezóně 2010/11 základní skupinu UEFA Champions League?;MŠK Žilina;FC Spartak Trnava;ŠK Slovan Bratislava;AS Trenčín
 Který trenér dovedl AS Monaco v roce 2003 až do finále UEFA Champions League?;Didier Deschamps;Raymond Goethals;Michel Platini;Laurent Blanc
@@ -536,7 +531,7 @@ Který trenér vyhrál s Wolfsburgem v sezóně 2008/09 Bundesligu?;Felix Magath
 Který trenér vystřídal nejvíce klubů v anglické fotbalové Premier League?;Sam Allardyce;Steve Bruce;Alan Pardew;David Moyes
 Který tým dokázal Liverpool FC porazit v UEFA Champions League rekordním výsledkem 8:0?;Besiktas;Maribor;Celtic;Olympiakos
 Který tým hraje na Estádio Ramón Sánchez Pizjuán?;FC Sevilla;Valencia CF;Real Sociedad;Real Madrid
-Který tým koupil roku 2011 za 41 milionů eur fotbalového útočníka Andyho Carolla z Newcastlu United?;Liverpool FC;Chelsea FC;West Ham United;Queens Park Rangers
+Který tým koupil roku 2011 za 41 milionů eur útočníka Andyho Carolla z Newcastlu United?;Liverpool FC;Chelsea FC;West Ham United;Queens Park Rangers
 Který tým trénoval Alex Ferguson před svým odchodem do Manchesteru United?;Aberdeen;Rangers;Hearts;St. Mirren
 Který tým trénoval Mauricio Pochettino před nástupem na lavičku Tottenhamu Hotspur?;Southampton FC;Espanyol Barcelona;FC Bordeaux;PSG
 Který tým ukončil neporazitelnost Arsenalu v Premier League (24.10.2004)?;Manchester United;Chelsea FC;AFC Sunderland;Liverpool FC
@@ -573,7 +568,7 @@ Který z těchto hráču nedal nikdy gól v El Clásicu?;David Beckham;Gareth Ba
 Který z těchto hráčů Porta FC nedal gól ve finále Ligy mistrů 2004? (AS Monaco 0:3 Porto FC);Benni McCarthy;Carlos Alberto;Deco;Dmitrij Aljeničev
 Který z těchto týmu nikdy netrénoval José Mourinho?;Manchester City;Manchetser United;Chelsea FC;Tottenham Hotspur
 Na kterém stadionu se odehrálo finále Ligy mistrů 2017/18?;NSK Olimpijskyj;Wembley Stadium;Stadio Olimpico;Wanda Metropolitano
-Na kterém stadionu se odehrálo finále UEFA Champions League 1999? (Manchester United 2:1 Bayern Mnichov);Camp Nou;Wembely;San Siro;Atatürkův olympijský stadion
+Na kterém stadionu se odehrálo finále UEFA Champions League 1999?;Camp Nou;Wembely;San Siro;Atatürkův olympijský stadion
 Odchovancem kterého týmu je Bojan Krkić?;FC Barcelona;Crvena zvezda Bělehrad;Hajduk Split;Željezničar Sarajevo
 Odchovancem kterého týmu je Mikel Arteta?;FC Barcelona;Athletic Bilbao;Real Sociedad;Deportivo Alavés
 Se kterým týmem vyhrál Wesley Sneijder UEFA Champions League?;Internazionale Milano;Real Madrid;Ajax Amsterdam;Chelsea FC
@@ -603,7 +598,7 @@ Ve kterém městě sídlí klub Everton FC?;Liverpool;Londýn;Newcastle upon Tyn
 Ve kterém roce byl založen klub TSG Hoffenheim?;1899;1901;1999;1904
 Ve kterém roce nevyhrál Manchester United Ligu mistrů/PMEZ?;2005;1968;1999;2008
 Ve kterém roce s odehrálo první MS ve fotbale?;1930;1950;1934;1954
-Ve kterém roce se udála Mnichovská tragédie, při které zemřelo několik hráčů a členů realizačního týmu Manchesteru United?;1958;1960;1962;1964
+Ve kterém roce se udála Mnichovská tragédie, při které spadlo letadlo s týmem Manchesteru United?;1958;1960;1962;1964
 Ve kterém roce vyhrál Lionel Messi svůj první zlatý míč?;2009;2006;2007;2008
 Ve kterém španělském týmu hrával Ciro Immobile?;Sevilla;Real Madrid;Valencia;Atlético Madrid
 Ve kterém tureckém týmu si zahrál Franck Ribéry?;Galatasaray;Fenerbahce;Besiktas;Trabzonspor
@@ -617,7 +612,7 @@ Z jakého týmu přestoupil do Tottenhamu Hotspur Jan Vertonghen?;Ajax;PSV;Ander
 Za kterého hráče zaplatil Tottenham nejvíce peněz v klubové historii?;Tanguy Ndombelé;Davinson Sánchez;Moussa Sissoko;Erik Lamela
 Za který pražský fotbalový tým si zahrál herec Vlasta Burian?;Sparta;Dukla;Slavia;Bohemians
 Za který ruský fotbalový tým si zahrál český útočník Jan Koller?;Křídla sovětů Samara;Rostov;Arsenal Tula;Dynamo Moskva
-Za rezervní tým kterého pražského fotbalového klubu hrával v mladí bývalý československý prezident Edvard Beneš?;Slavia;Dukla;Sparta;Viktoria Žižkov
+Za rezervní tým kterého pražského klubu hrával v mladí československý prezident Edvard Beneš?;Slavia;Dukla;Sparta;Viktoria Žižkov
 Ze které země pocházel Bob Paisley?;Skotsko;Anglie;Wales;Irsko
 Ze které země pocházel Matt Busby?;Skotsko;Anglie;Wales;Irsko
 Ze kterého klubu přestoupil roku 2008 Dani Alves do FC Barcelona?;Sevilla FC;Real Zaragoza;Juventus FC;PSG
@@ -650,7 +645,7 @@ V jakém týmu začal svoji seniorskou kariéru Harry Maguire?;Sheffield United;
 Kolik sourozenců má Lionel Messi?;3;0;2;4
 Kolik vlků (vlčic) se nachází ve znaku týmu AS Řím?;1;2;3;4
 Kolikrát vyhrál Alex Ferguson anglickou Premier League s Manchesterem United?;13×;11×;12×;14×
-Kterému hráči, kromě Lionela Messiho, se podařilo vstřelit 5 gólů během jednoho zápasu UEFA Champions League?;Luiz Adriano;Bafetimbi Gomis;Cristiano Ronaldo;Ruud van Nistelrooy,,,,,,
+Který, kromě Lionela Messiho, vstřelil 5 gólů během jednoho zápasu UEFA Champions League?;Luiz Adriano;Bafetimbi Gomis;Cristiano Ronaldo;Ruud van Nistelrooy,,,,,,
 Kteří dva světově známí fotbalisté mají narozeniny ve stejný den?;Cristiano Ronaldo a Neymar;Cristiano Ronaldo a Lionel Messi;Lionel Messi a Neymar;Neymar a Luis Suárez
 Kterou zemi reprezentuje Geoffrey Kondogbia?;Středoafrickou republiku;DR Kongo;Francii;Anglii
 Který brankář nastoupil do rekordních 310 po sobě jdoucích zápasů Premier League?;Brad Friedel;Tim Howard;Shay Given;Marc Schwarzer
@@ -689,7 +684,6 @@ Odchovancem kterého týmu je Pepe Reina?;FC Barcelona;Real Madrid;Atlético Mad
 Proti kterému týmu nikdy neskóroval slovenský reprezentant Stanislav Šesták?;Ukrajina;Česko;Chile;Kostarika
 Se kterým týmem prohráli českoslovenští fotbalisté ve finále MS ve fotbale 1934?;Itálie;Uruguay;Brazílie;Německo
 V jakém týmu získal Kevin Keegan dva Zlaté míče (Ballon d'Or)?;Hamburger SV;Southampton;Liverpool FC;Newcastle United
-V sezóně 2009/2010 si zákládní skupinu UEFA Champions League jeden rumunský tým, který však již dnes neexistuje. Jak se jmenoval?;FC Unirea Urziceni;FC Rapid Bukurešť;FC Vaslui;Steaua Bukurešť
 Ve které asijské zemi si zahrál Rivaldo?;Uzbekistán;Japonsko;Katar;Jižní Korea
 Ve které zemi se narodil Fikayo Tomori?;Kanada;Anglie;Japonsko;Indonésie
 Za který z těchto klubů nikdy nehrál fotbalový záložník Gennaro Gattuso?;Pisa;Salernitana;Rangers;Sion

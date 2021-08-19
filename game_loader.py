@@ -17,7 +17,7 @@ confirmButtonFile = "assets/confirmButton.png"
 cancelButtonFile = "assets/cancelButton.png"
 questionsFile = "questions.csv"
 addQuestionLabelsFile = "labels/addQuestionLabels.csv"
-fontFile = "assets/cappung_Font.otf"  # by 7NTypes ze stránky dafont.com
+fontFile = "assets/Caveat-VariableFont_wght.ttf"  # Ze stránky Google Fonts
 
 questionButtonCoordinates = [((windowWidth - standardButtonWidth) / 2, 200), (200, 400),
                              (windowWidth - 200 - standardButtonWidth, 400), (200, 600),
@@ -67,9 +67,9 @@ class ButtonWithText(Button):
     def BlitOnScreen(self, display):
         super(ButtonWithText, self).BlitOnScreen(display)
         textParts = list()
-        for i in range((len(self.text) // 35) + 1):
+        for i in range((len(self.text) // 34) + 1):
             if i != 4:
-                textParts.append(self.text[i * 35:((i + 1) * 35)])
+                textParts.append(self.text[i * 34:((i + 1) * 34)])
         for i in range(len(textParts)):
             if i != len(textParts) - 1:
                 if " " in textParts[i]:
@@ -79,7 +79,7 @@ class ButtonWithText(Button):
 
             text = self.font.render(textParts[i], True, (0, 0, 0), (255, 255, 255))
             textRect = text.get_rect()
-            textRect.center = (self.XAxis + self.width / 2, self.YAxis + 20 + i * 25)
+            textRect.center = (self.XAxis + self.width / 2, self.YAxis + 20 + i * 36)
             display.blit(text, textRect)
 
     def ShowCursor(self, replaceMode = 0):
@@ -95,7 +95,7 @@ class ButtonWithText(Button):
             self.text = self.text.replace('|', "")
 
     def AddChar(self, key):
-        if (len(self.text)) == 140 or key == "|":
+        if (len(self.text)) == 100 or key == "|":
             return
         oldString = self.text
         self.text = self.text.replace("|", key)
