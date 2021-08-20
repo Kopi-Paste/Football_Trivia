@@ -3,6 +3,8 @@ import os
 import csv
 import random
 
+import current_display
+
 windowWidth = 1280
 windowHeight = 1040
 standardButtonWidth = 361
@@ -26,6 +28,7 @@ highscoresFile = "highscores.csv"
 addQuestionLabelsFile = "labels/addQuestionLabels.csv"
 playGameLabelsFile = "labels/playGameLabels.csv"
 lossGameLabelsFile = "labels/lossGameLabels.csv"
+highscoresLabelsFile = "labels/highscoresLabels.csv"
 fontFile = "assets/Caveat-VariableFont_wght.ttf"  # Ze stránky Google Fonts
 
 questionButtonCoordinates = [((windowWidth - standardButtonWidth) / 2, 200), (200, 400),
@@ -42,8 +45,9 @@ class Screen:
 
     def Draw(self):
         self.display.fill(self.background)
-        for button in self.buttons:
-            button.BlitOnScreen(self.display)
+        if self.buttons is not None:
+            for button in self.buttons:
+                button.BlitOnScreen(self.display)
         if self.labels is not None:
             for label in self.labels:
                 label.Show(self.display)
@@ -312,12 +316,6 @@ def GameScreenSetup():
 
 def WriteScore(nickname, score):
     from datetime import datetime
-    # i = 0
-    # try:
-    #     with open(highscoresFile, mode='a', encoding='utf-8-sig', newline='') as highscores:
-    #         highscores.write("\n" + nickname + "\t" + str(score))
-    # except FileNotFoundError:
-    #     pass
     try:
         from operator import itemgetter
         scoresList = list()
@@ -335,6 +333,30 @@ def WriteScore(nickname, score):
         pass
     except PermissionError:
         pass
+
+def HighscoreLabels():
+    labelsList = list()
+    try:
+        with open(highscoresLabelsFile, mode='r', encoding='utf-8-sig') as labels:
+            labels = csv.reader(labels, delimiter=';')
+            for row in labels:
+                labelsList.append(Label(row[0], int(row[1]), int(row[2]), int(row[3])))
+    except FileNotFoundError:
+        pygame.quit()
+        exit("Not found file: " + highscoresLabelsFile)
+
+    try:
+        with open(highscoresFile, mode='r', encoding='utf-8-sig') as highscores:
+            highscores = csv.reader(highscores, delimiter=';')
+            position = 1
+            for row in highscores:
+                labelsList.append(Label(("%s. %s        %s        %s" % (position, row[0], row[1], row[2])), 22, windowWidth / 2, 300 + position * 25))
+                position += 1
+    except FileNotFoundError:
+        pygame.quit()
+        exit("Not found file: " + highscoresFile)
+    return labelsList
+
 
 def LossGameButtons():
     buttonsList = list()
@@ -368,3 +390,11 @@ def LossGameScreenSetup(correctAnswer, score):
     lossGameScreen = Screen(lossGameScreenDisplay, background, LossGameButtons(), LossGameLabels(correctAnswer, score))
     current_display.currentScreen = lossGameScreen
     current_display.currentButtons = lossGameScreen.buttons
+
+
+def HighscoresScreenSetup():
+    import current_display
+    highscoresScreenDisplay = pygame.display.set_mode((windowWidth, windowHeight))
+    highscoresScreen = Screen(highscoresScreenDisplay, background, None, HighscoreLabels())
+    current_display.currentScreen = highscoresScreen
+    current_display.currentButtons = None

@@ -36,7 +36,8 @@ def MainMenuLoop():
                 game_loader.AddQuestionScreenSetup()
                 return 4
             elif clickedButtonNumber == 2:
-                pass
+                game_loader.HighscoresScreenSetup()
+                return 5
             elif clickedButtonNumber == 3:
                 return -1
     return 0
@@ -99,8 +100,8 @@ def LossGameLoop():
                 if current_display.currentButtons[0].text == "":
                     return 3
                 game_loader.WriteScore(current_display.currentButtons[0].text, current_display.score)
-                game_loader.FirstScreenSetup()
-                return 0
+                game_loader.HighscoresScreenSetup()
+                return 5
             elif clickedButtonNumber == -1:
                 current_display.currentButtons[0].clickedOn = False
                 current_display.currentButtons[0].HideCursor()
@@ -176,5 +177,13 @@ def AddQuestionLoop():
     return 4
 
 def BestScoresLoop():
-    pass
-
+    import current_display
+    current_display.DisplayScreen()
+    pygame.display.update()
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            return -1
+        elif event.type == pygame.MOUSEBUTTONUP:
+            game_loader.FirstScreenSetup()
+            return 0
+    return 5
