@@ -61,9 +61,9 @@ def PlayGameLoop():
                     current_display.currentScreen.ShowArrow(current_display.currentQuestion)
                     return 1
                 else:
-                    game_loader.WriteScore(1000000)
-                    game_loader.FirstScreenSetup()
-                    return 0  #Výhra
+                    current_display.score = game_loader.scores[-1]
+                    game_loader.WinGameScreenSetup()
+                    return 3  #Výhra
             elif clickedButtonNumber == 5:
                 current_display.score = game_loader.scores[current_display.currentQuestion]
                 game_loader.LossGameScreenSetup(current_display.currentQuestions[current_display.currentQuestion].correctAnswer, current_display.score)
@@ -75,7 +75,7 @@ def PlayGameLoop():
     return 1
 
 def WinGameLoop():
-    pass
+    import current_display
 
 def LossGameLoop():
     import current_display

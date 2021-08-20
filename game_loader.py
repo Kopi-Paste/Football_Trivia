@@ -3,8 +3,6 @@ import os
 import csv
 import random
 
-import current_display
-
 windowWidth = 1280
 windowHeight = 1040
 standardButtonWidth = 361
@@ -14,7 +12,8 @@ wideButtonHeight = 50
 
 background = (71, 174, 56)
 
-scores = [0, 100, 200, 300, 500, 1000, 2000, 4000, 8000, 16000, 32000, 64000, 125000, 250000, 500000, 1000000]
+scores = ['0', '100', '200', '300', '500', '1 000', '2 000', '4 000', '8 000', '16 000', '32 000', '64 000', '125 000',
+          '250 000', '500 000', '1 000 000']
 
 mainMenuButtonsDir = "assets/Menu_buttons/"
 iconFile = "assets/football.png"
@@ -28,6 +27,7 @@ highscoresFile = "highscores.csv"
 addQuestionLabelsFile = "labels/addQuestionLabels.csv"
 playGameLabelsFile = "labels/playGameLabels.csv"
 lossGameLabelsFile = "labels/lossGameLabels.csv"
+winGameLabelsFile = "labels/winGameLabels.csv"
 highscoresLabelsFile = "labels/highscoresLabels.csv"
 fontFile = "assets/Caveat-VariableFont_wght.ttf"  # Ze stránky Google Fonts
 
@@ -322,12 +322,14 @@ def WriteScore(nickname, score):
         with open(highscoresFile, mode='r', encoding='utf-8-sig') as highscores:
             highscores = csv.reader(highscores, delimiter=';')
             for row in highscores:
-                scoresList.append([row[0], int(row[1]), row[2]])
-        scoresList.append([nickname, score, datetime.now().strftime("%d.%m.%Y %H:%M")])
+                scoresList.append([row[0], scores.index(row[1]), row[2]])
+        scoresList.append([nickname, scores.index(score), datetime.now().strftime("%d.%m.%Y %H:%M")])
         sortedScores = sorted(scoresList, key=itemgetter(1), reverse=True)
+        sortedScores = sortedScores[:10]
         with open(highscoresFile, mode='w', encoding='utf-8-sig', newline='') as highscores:
             highscores = csv.writer(highscores, delimiter=';',)
             for row in sortedScores:
+                row[1] = scores[row[1]]
                 highscores.writerow(row)
     except FileNotFoundError:
         pass
@@ -358,7 +360,7 @@ def HighscoreLabels():
     return labelsList
 
 
-def LossGameButtons():
+def EndGameButtons():
     buttonsList = list()
     buttonsList.append(ButtonWithText(wideEmptyButtonFile, (windowWidth - wideButtonWidth) / 2, 400, wideButtonWidth, wideButtonHeight, "", 50, 50))
     buttonsList.append(Button(backToMenuButtonFile, 200, 600, standardButtonWidth, standardButtonHeight))
@@ -384,13 +386,33 @@ def LossGameLabels(correctAnswer, score):
 
     return labelsList
 
+def WinGameLabels():
+    labelsList = list()
+    try:
+        with open(winGameLabelsFile, mode='r', encoding='utf-8-sig') as labelsFile:
+            labelsFile = csv.reader(labelsFile, delimiter=';')
+            for row in labelsFile:
+                labelsList.append(Label(row[0], int(row[1]), int(row[2]), int(row[3])))
+    except FileNotFoundError:
+        pygame.quit()
+        exit("File not found: " + winGameLabelsFile)
+
+    return labelsList
+
 def LossGameScreenSetup(correctAnswer, score):
     import current_display
     lossGameScreenDisplay = pygame.display.set_mode((windowWidth, windowHeight))
-    lossGameScreen = Screen(lossGameScreenDisplay, background, LossGameButtons(), LossGameLabels(correctAnswer, score))
+    lossGameScreen = Screen(lossGameScreenDisplay, background, EndGameButtons(), LossGameLabels(correctAnswer, score))
     current_display.currentScreen = lossGameScreen
     current_display.currentButtons = lossGameScreen.buttons
 
+
+def WinGameScreenSetup():
+    import current_display
+    winGameScreenDisplay = pygame.display.set_mode((windowWidth, windowHeight))
+    winGameScreen = Screen(winGameScreenDisplay, background, EndGameButtons(), WinGameLabels())
+    current_display.currentScreen = winGameScreen
+    current_display.currentButtons = winGameScreen.buttons
 
 def HighscoresScreenSetup():
     import current_display
@@ -398,3 +420,4 @@ def HighscoresScreenSetup():
     highscoresScreen = Screen(highscoresScreenDisplay, background, None, HighscoreLabels())
     current_display.currentScreen = highscoresScreen
     current_display.currentButtons = None
+
