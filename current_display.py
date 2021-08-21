@@ -14,6 +14,8 @@ fiftyFiftyAvailable = True
 
 friendHelpAvailable = True
 
+publicHelpAvailable = True
+
 
 def DisplayScreen():
     currentScreen.Draw()

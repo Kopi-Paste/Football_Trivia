@@ -83,7 +83,13 @@ def PlayGameLoop():
                 current_display.currentScreen.buttons = current_display.currentButtons
                 return 1
 
-            elif clickedButtonNumber != 0 and clickedButtonNumber != -1 and current_display.currentButtons[clickedButtonNumber].text != "":
+            elif clickedButtonNumber == 8:
+                current_display.publicHelpAvailable = False
+                current_display.currentButtons.append(current_display.currentQuestions[current_display.currentQuestion].PublicHelp(current_display.currentQuestion))
+                current_display.currentScreen.buttons = current_display.currentButtons
+                return 1
+
+            elif clickedButtonNumber != 0 and clickedButtonNumber != -1 and clickedButtonNumber != 9 and current_display.currentButtons[clickedButtonNumber].text != "":
                 current_display.score = game_loader.scores[current_display.currentQuestion - current_display.currentQuestion % 5]
                 game_loader.LossGameScreenSetup(current_display.currentQuestions[current_display.currentQuestion].correctAnswer, current_display.score) #Prohra
                 return 2

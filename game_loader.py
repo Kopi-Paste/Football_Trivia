@@ -1,3 +1,6 @@
+import time
+
+import matplotlib
 import pygame
 import os
 import csv
@@ -25,6 +28,7 @@ cancelButtonFile = "assets/cancelButton.png"
 backToMenuButtonFile = "assets/backToMenuButton.png"
 fiftyFiftyButton = "assets/hintButtons/fiftyFifty.png"
 friendHelpButton = "assets/hintButtons/friendHelp.png"
+publicHelpButton = "assets/hintButtons/publicHelp.png"
 questionsFile = "questions.csv"
 highscoresFile = "highscores.csv"
 addQuestionLabelsFile = "labels/addQuestionLabels.csv"
@@ -33,6 +37,7 @@ lossGameLabelsFile = "labels/lossGameLabels.csv"
 winGameLabelsFile = "labels/winGameLabels.csv"
 highscoresLabelsFile = "labels/highscoresLabels.csv"
 friendHelpLabelsFile = "labels/friendHelpLabels.csv"
+publicHelpBarChart = "assets/helpBarChart.png"
 fontFile = "assets/Caveat-VariableFont_wght.ttf"  # Ze stránky Google Fonts
 
 questionButtonCoordinates = [((windowWidth - standardButtonWidth) / 2, 200), (200, 400),
@@ -218,11 +223,15 @@ class Question:
                               standardButtonHeight))
         import current_display
         if current_display.fiftyFiftyAvailable:
-            buttons.append(Button(fiftyFiftyButton, windowWidth / 2 - 100, 50, smallButtonSide, smallButtonSide))
+            buttons.append(Button(fiftyFiftyButton, (windowWidth - smallButtonSide) / 2 - 100, 50, smallButtonSide, smallButtonSide))
         else:
             buttons.append(None)
         if current_display.friendHelpAvailable:
             buttons.append(Button(friendHelpButton, (windowWidth - smallButtonSide) / 2, 50, smallButtonSide, smallButtonSide))
+        else:
+            buttons.append(None)
+        if current_display.publicHelpAvailable:
+            buttons.append(Button(publicHelpButton, (windowWidth - smallButtonSide) / 2 + 100, 50, smallButtonSide, smallButtonSide))
         else:
             buttons.append(None)
 
@@ -259,7 +268,6 @@ class Question:
                 i += 1
                 displayRow += 1
             import current_display
-            currentAnswers = list()
             for i in range(1, 5):
                 if current_display.currentButtons[i].text != "":
                     newLabels.append(Label(current_display.currentButtons[i].text, 20, 225, 230+25*i))
@@ -284,6 +292,30 @@ class Question:
                 newLabels.append(Label(possibleTexts[1] + self.badAnswers[rnd], 22, 225, 375))
         return newLabels
 
+    def PublicHelp(self, questionIndex):
+        import matplotlib.pyplot as plot
+        #import matplotlib.rcsetup
+        import current_display
+        currentAnswers = list()
+        percentages = list()
+        correctAnswerPercentage = random.randint((16 - (questionIndex / 2)) * 6, (98 - questionIndex * 2))
+        remainingPercenatge = 100 - correctAnswerPercentage
+        for i in range(1, 5):
+            if current_display.currentButtons[i].text != "":
+                currentAnswers.append(current_display.currentButtons[i].text)
+        if len(currentAnswers) == 2:
+            percentages.append(remainingPercenatge)
+        else:
+            for i in range(3):
+                percentage = random.randint(0, remainingPercenatge)
+                percentages.append(percentage)
+                remainingPercenatge -= percentage
+        percentages.insert(self.correctAnswerIndex - 1, correctAnswerPercentage)
+        plot.bar(currentAnswers, percentages)
+        plot.savefig(publicHelpBarChart, dpi=50)
+        button = Button(publicHelpBarChart, 50, 750, 320, 240)
+        os.remove(publicHelpBarChart)
+        return button
 
 def GeneralSetup():
     pygame.display.set_caption("Football Trivia")
@@ -393,6 +425,7 @@ def GameSetup():
     current_display.currentQuestion = 0
     current_display.fiftyFiftyAvailable = True
     current_display.friendHelpAvailable = True
+    current_display.publicHelpAvailable = True
     buttons = current_display.currentQuestions[0].ToButtons()
     playGameScreenDisplay = pygame.display.set_mode((windowWidth, windowHeight))
     playGameScreen = Screen(playGameScreenDisplay, background, buttons, PlayGameLabels())
@@ -494,6 +527,7 @@ def LossGameScreenSetup(correctAnswer, score):
 
 
 def WinGameScreenSetup():
+    os.remove(publicHelpBarChart)
     import current_display
     winGameScreenDisplay = pygame.display.set_mode((windowWidth, windowHeight))
     winGameScreen = Screen(winGameScreenDisplay, background, EndGameButtons(), WinGameLabels())
