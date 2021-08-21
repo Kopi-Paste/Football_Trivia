@@ -246,26 +246,33 @@ class Question:
                             textParts[1] = textParts[0][-1] + textParts[1]
                             textParts[0] = textParts[0][:-1]
                         displayRow += 1
-                        newLabels.append(Label(textParts[0], 22, 225, 20+30*(displayRow)))
+                        newLabels.append(Label(textParts[0], 22, 225, 20 + 30 * displayRow))
                         displayRow += 1
-                        newLabels.append(Label(textParts[1], 22, 225, 20+30*(displayRow)))
+                        newLabels.append(Label(textParts[1], 22, 225, 20 + 30 * displayRow))
                     else:
                         displayRow += 1
-                        newLabels.append(Label(self.question, 22, 225, 20+30*(displayRow)))
+                        newLabels.append(Label(self.question, 22, 225, 20 + 30 * displayRow))
+                elif i == 5:
+                    newLabels.append(Label(row[0], 22, 225, 20+30*displayRow))
                 else:
                     possibleTexts.append(row[0])
                 i += 1
                 displayRow += 1
+            import current_display
+            currentAnswers = list()
+            for i in range(1, 5):
+                if current_display.currentButtons[i].text != "":
+                    newLabels.append(Label(current_display.currentButtons[i].text, 20, 225, 230+25*i))
+                    displayRow += 1
+
             friendsKnowledge = random.randint(0, 40)
-            print(friendsKnowledge)
             friendsKnowledge -= questionIndex
-            print(friendsKnowledge)
             if friendsKnowledge > 30:
-                newLabels.append(Label(possibleTexts[0] + self.correctAnswer, 22, 225, 275))
+                newLabels.append(Label(possibleTexts[0] + self.correctAnswer, 22, 225, 375))
             elif friendsKnowledge > 15:
-                newLabels.append(Label(possibleTexts[1] + self.correctAnswer, 22, 225, 275))
+                newLabels.append(Label(possibleTexts[1] + self.correctAnswer, 22, 225, 375))
             elif friendsKnowledge > 5:
-                newLabels.append(Label(possibleTexts[2], 22, 225, 275))
+                newLabels.append(Label(possibleTexts[2], 22, 225, 375))
             else:
                 import current_display
                 rnd = random.randint(0, 2)
@@ -274,7 +281,7 @@ class Question:
                     currentAnswers.append(current_display.currentButtons[i].text)
                 while self.badAnswers[rnd] not in currentAnswers:
                     rnd = random.randint(0, 2)
-                newLabels.append(Label(possibleTexts[1] + self.badAnswers[rnd], 22, 225, 275))
+                newLabels.append(Label(possibleTexts[1] + self.badAnswers[rnd], 22, 225, 375))
         return newLabels
 
 
