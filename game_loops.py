@@ -9,12 +9,10 @@ def GameLoop(state):
     elif state == 1:
         return PlayGameLoop()
     elif state == 2:
-        return WinGameLoop()
+        return EndGameLoop()
     elif state == 3:
-        return LossGameLoop()
-    elif state == 4:
         return AddQuestionLoop()
-    elif state == 5:
+    elif state == 4:
         return BestScoresLoop()
 
 
@@ -29,15 +27,15 @@ def MainMenuLoop():
         elif event.type == pygame.MOUSEBUTTONUP:
             clickedButtonNumber = current_display.DetermineClickedButton(pygame.mouse.get_pos())
             if clickedButtonNumber == 0:
-                game_loader.GameScreenSetup()
+                game_loader.GameSetup()
                 return 1
 
             elif clickedButtonNumber == 1:
                 game_loader.AddQuestionScreenSetup()
-                return 4
+                return 3
             elif clickedButtonNumber == 2:
                 game_loader.HighscoresScreenSetup()
-                return 5
+                return 4
             elif clickedButtonNumber == 3:
                 return -1
     return 0
@@ -63,21 +61,27 @@ def PlayGameLoop():
                 else:
                     current_display.score = game_loader.scores[-1]
                     game_loader.WinGameScreenSetup()
-                    return 3  #Výhra
+                    return 2  #Výhra
             elif clickedButtonNumber == 5:
                 current_display.score = game_loader.scores[current_display.currentQuestion]
                 game_loader.LossGameScreenSetup(current_display.currentQuestions[current_display.currentQuestion].correctAnswer, current_display.score)
-                return 3
-            elif clickedButtonNumber != 0 and clickedButtonNumber != -1:
+                return 2
+
+            elif clickedButtonNumber == 6:
+                current_display.currentQuestions[current_display.currentQuestion].fiftyFiftyUsed = True
+                current_display.fiftyFiftyAvailable = False
+                current_display.currentButtons = current_display.currentQuestions[current_display.currentQuestion].ToButtons(True)
+                current_display.currentScreen.buttons = current_display.currentButtons
+                return 1
+
+            elif clickedButtonNumber != 0 and clickedButtonNumber != -1 and current_display.currentButtons[clickedButtonNumber].text != "":
                 current_display.score = game_loader.scores[current_display.currentQuestion - current_display.currentQuestion % 5]
                 game_loader.LossGameScreenSetup(current_display.currentQuestions[current_display.currentQuestion].correctAnswer, current_display.score) #Prohra
-                return 3
+                return 2
+
     return 1
 
-def WinGameLoop():
-    import current_display
-
-def LossGameLoop():
+def EndGameLoop():
     import current_display
     current_display.DisplayScreen()
     pygame.display.update()
@@ -98,10 +102,10 @@ def LossGameLoop():
                 current_display.currentButtons[0].clickedOn = False
                 current_display.currentButtons[0].HideCursor()
                 if current_display.currentButtons[0].text == "":
-                    return 3
+                    return 2
                 game_loader.WriteScore(current_display.currentButtons[0].text, current_display.score)
                 game_loader.HighscoresScreenSetup()
-                return 5
+                return 4
             elif clickedButtonNumber == -1:
                 current_display.currentButtons[0].clickedOn = False
                 current_display.currentButtons[0].HideCursor()
@@ -123,7 +127,7 @@ def LossGameLoop():
                     current_display.currentButtons[0].HideCursor()
                 else:
                     current_display.currentButtons[0].AddChar(event.unicode)
-    return 3
+    return 2
 
 def AddQuestionLoop():
     import current_display
@@ -147,7 +151,7 @@ def AddQuestionLoop():
                 elif clickedButtonNumber == 6:
                     for i in range(5):
                         if current_display.currentButtons[i].textGraphic == "":
-                            return 4
+                            return 3
                     game_loader.Question(current_display.currentButtons[0].textGraphic, current_display.currentButtons[1].textGraphic, (current_display.currentButtons[2].textGraphic, current_display.currentButtons[3].textGraphic, current_display.currentButtons[4].textGraphic)).WriteToCSV()
                     game_loader.FirstScreenSetup()
                     return 0
@@ -174,7 +178,7 @@ def AddQuestionLoop():
 
 
 
-    return 4
+    return 3
 
 def BestScoresLoop():
     import current_display
@@ -186,4 +190,4 @@ def BestScoresLoop():
         elif event.type == pygame.MOUSEBUTTONUP:
             game_loader.FirstScreenSetup()
             return 0
-    return 5
+    return 4

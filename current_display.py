@@ -10,6 +10,8 @@ currentQuestion = 0
 
 score = 0
 
+fiftyFiftyAvailable = True
+
 
 def DisplayScreen():
     currentScreen.Draw()
@@ -17,7 +19,7 @@ def DisplayScreen():
 def DetermineClickedButton(mousePosition):
     i = 0
     for button in currentButtons:
-        if button.MouseCollision(mousePosition):
+        if button is not None and button.MouseCollision(mousePosition):
             return i
         i += 1
     return -1

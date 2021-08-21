@@ -9,6 +9,7 @@ standardButtonWidth = 361
 standardButtonHeight = 114
 wideButtonWidth = 801
 wideButtonHeight = 50
+smallButtonSide = 30
 
 background = (71, 174, 56)
 
@@ -22,6 +23,7 @@ wideEmptyButtonFile = "assets/wideEmptyButton.png"
 confirmButtonFile = "assets/confirmButton.png"
 cancelButtonFile = "assets/cancelButton.png"
 backToMenuButtonFile = "assets/backToMenuButton.png"
+fiftyFiftyButton = "assets/hintButtons/fiftyFifty.png"
 questionsFile = "questions.csv"
 highscoresFile = "highscores.csv"
 addQuestionLabelsFile = "labels/addQuestionLabels.csv"
@@ -47,7 +49,8 @@ class Screen:
         self.display.fill(self.background)
         if self.buttons is not None:
             for button in self.buttons:
-                button.BlitOnScreen(self.display)
+                if button is not None:
+                    button.BlitOnScreen(self.display)
         if self.labels is not None:
             for label in self.labels:
                 label.Show(self.display)
@@ -178,6 +181,8 @@ class Question:
         self.correctAnswer = correctAnswer
         self.badAnswers = badAnswers
         self.correctAnswerIndex = 1
+        self.answersInOrder = None
+        self.fiftyFiftyUsed = False
 
     def WriteToCSV(self):
         try:
@@ -187,16 +192,31 @@ class Question:
         except:
             pygame.quit()
             exit("Not found file " + questionsFile)
-    def ToButtons(self):
+    def ToButtons(self, orderIsSet = False):
         buttons = list()
-        texts = [self.correctAnswer, self.badAnswers[0], self.badAnswers[1], self.badAnswers[2]]
-        random.shuffle(texts)
-        texts.insert(0, self.question)
-        self.correctAnswerIndex = texts.index(self.correctAnswer)
+        if not orderIsSet:
+            texts = [self.correctAnswer, self.badAnswers[0], self.badAnswers[1], self.badAnswers[2]]
+            random.shuffle(texts)
+            self.answersInOrder = texts
+            texts.insert(0, self.question)
+            self.correctAnswerIndex = texts.index(self.correctAnswer)
+        if self.fiftyFiftyUsed:
+            rnd1 = random.randint(0, 3)
+            rnd2 = random.randint(0, 3)
+            while rnd1 == self.correctAnswerIndex - 1 or rnd2 == self.correctAnswerIndex - 1 or rnd1 == rnd2:
+                rnd1 = random.randint(0, 3)
+                rnd2 = random.randint(0, 3)
+            self.answersInOrder[rnd1 + 1] = ""
+            self.answersInOrder[rnd2 + 1] = ""
         for i in range(5):
-            buttons.append(ButtonWithText(emptyButtonFile, questionButtonCoordinates[i][0], questionButtonCoordinates[i][1], standardButtonWidth, standardButtonHeight, texts[i], 100, 33))
+            buttons.append(ButtonWithText(emptyButtonFile, questionButtonCoordinates[i][0], questionButtonCoordinates[i][1], standardButtonWidth, standardButtonHeight, self.answersInOrder[i], 100, 33))
         buttons.append(Button(backToMenuButtonFile, (windowWidth - standardButtonWidth) / 2, 800, standardButtonWidth,
                               standardButtonHeight))
+        import current_display
+        if current_display.fiftyFiftyAvailable:
+            buttons.append(Button(fiftyFiftyButton, windowWidth / 2 - 100, 50, smallButtonSide, smallButtonSide))
+        else:
+            buttons.append(None)
 
         return buttons
 
@@ -205,7 +225,7 @@ def GeneralSetup():
     pygame.display.set_caption("Football Trivia")
     try:
         icon = pygame.image.load(iconFile)
-    except:
+    except FileNotFoundError:
         pygame.quit()
         exit("Not found file " + iconFile)
     pygame.display.set_icon(icon)
@@ -303,10 +323,11 @@ def PlayGameLabels():
 
 
 
-def GameScreenSetup():
+def GameSetup():
     import current_display
     current_display.currentQuestions = LoadQuestions()
     current_display.currentQuestion = 0
+    current_display.fiftyFiftyAvailable = True
     buttons = current_display.currentQuestions[0].ToButtons()
     playGameScreenDisplay = pygame.display.set_mode((windowWidth, windowHeight))
     playGameScreen = Screen(playGameScreenDisplay, background, buttons, PlayGameLabels())
