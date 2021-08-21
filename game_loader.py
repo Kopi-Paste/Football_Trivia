@@ -294,7 +294,6 @@ class Question:
 
     def PublicHelp(self, questionIndex):
         import matplotlib.pyplot as plot
-        #import matplotlib.rcsetup
         import current_display
         currentAnswers = list()
         percentages = list()
@@ -311,6 +310,7 @@ class Question:
                 percentages.append(percentage)
                 remainingPercenatge -= percentage
         percentages.insert(self.correctAnswerIndex - 1, correctAnswerPercentage)
+        plot.figure()
         plot.bar(currentAnswers, percentages)
         plot.savefig(publicHelpBarChart, dpi=50)
         button = Button(publicHelpBarChart, 50, 750, 320, 240)
