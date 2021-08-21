@@ -12,6 +12,8 @@ score = 0
 
 fiftyFiftyAvailable = True
 
+friendHelpAvailable = True
+
 
 def DisplayScreen():
     currentScreen.Draw()

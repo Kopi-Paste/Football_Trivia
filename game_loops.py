@@ -55,6 +55,7 @@ def PlayGameLoop():
                     current_display.currentQuestion += 1
                     newQuestionButtons = current_display.currentQuestions[current_display.currentQuestion].ToButtons()
                     current_display.currentScreen.buttons = newQuestionButtons
+                    current_display.currentScreen.labels = current_display.currentScreen.labels[:15]
                     current_display.currentButtons = newQuestionButtons
                     current_display.currentScreen.ShowArrow(current_display.currentQuestion)
                     return 1
@@ -70,6 +71,14 @@ def PlayGameLoop():
             elif clickedButtonNumber == 6:
                 current_display.currentQuestions[current_display.currentQuestion].fiftyFiftyUsed = True
                 current_display.fiftyFiftyAvailable = False
+                current_display.currentButtons = current_display.currentQuestions[current_display.currentQuestion].ToButtons(True)
+                current_display.currentScreen.buttons = current_display.currentButtons
+                return 1
+
+            elif clickedButtonNumber == 7:
+                current_display.currentScreen.labels.extend(current_display.currentQuestions[current_display.currentQuestion].FriendHelp(current_display.currentQuestion))
+                current_display.friendHelpAvailable = False
+                current_display.currentQuestions[current_display.currentQuestion].fiftyFiftyUsed = False
                 current_display.currentButtons = current_display.currentQuestions[current_display.currentQuestion].ToButtons(True)
                 current_display.currentScreen.buttons = current_display.currentButtons
                 return 1

@@ -24,6 +24,7 @@ confirmButtonFile = "assets/confirmButton.png"
 cancelButtonFile = "assets/cancelButton.png"
 backToMenuButtonFile = "assets/backToMenuButton.png"
 fiftyFiftyButton = "assets/hintButtons/fiftyFifty.png"
+friendHelpButton = "assets/hintButtons/friendHelp.png"
 questionsFile = "questions.csv"
 highscoresFile = "highscores.csv"
 addQuestionLabelsFile = "labels/addQuestionLabels.csv"
@@ -31,6 +32,7 @@ playGameLabelsFile = "labels/playGameLabels.csv"
 lossGameLabelsFile = "labels/lossGameLabels.csv"
 winGameLabelsFile = "labels/winGameLabels.csv"
 highscoresLabelsFile = "labels/highscoresLabels.csv"
+friendHelpLabelsFile = "labels/friendHelpLabels.csv"
 fontFile = "assets/Caveat-VariableFont_wght.ttf"  # Ze stránky Google Fonts
 
 questionButtonCoordinates = [((windowWidth - standardButtonWidth) / 2, 200), (200, 400),
@@ -192,6 +194,8 @@ class Question:
         except:
             pygame.quit()
             exit("Not found file " + questionsFile)
+
+
     def ToButtons(self, orderIsSet = False):
         buttons = list()
         if not orderIsSet:
@@ -217,8 +221,61 @@ class Question:
             buttons.append(Button(fiftyFiftyButton, windowWidth / 2 - 100, 50, smallButtonSide, smallButtonSide))
         else:
             buttons.append(None)
+        if current_display.friendHelpAvailable:
+            buttons.append(Button(friendHelpButton, (windowWidth - smallButtonSide) / 2, 50, smallButtonSide, smallButtonSide))
+        else:
+            buttons.append(None)
 
         return buttons
+
+    def FriendHelp(self, questionIndex):
+        newLabels = list()
+        possibleTexts = list()
+        with open(friendHelpLabelsFile, mode='r', encoding='utf-8-sig') as labels:
+            labels = csv.reader(labels, delimiter=';')
+            i = 0
+            displayRow = 0
+            for row in labels:
+                if i < 4:
+                    newLabels.append(Label(row[0], 22, 225, 20+30*displayRow))
+                elif i == 4:
+                    newLabels.append(Label(row[0], 22, 225, 20+30*displayRow))
+                    if len(self.question) > 50:
+                        textParts = [self.question[:50], self.question[50:]]
+                        while not textParts[0].endswith(' '):
+                            textParts[1] = textParts[0][-1] + textParts[1]
+                            textParts[0] = textParts[0][:-1]
+                        displayRow += 1
+                        newLabels.append(Label(textParts[0], 22, 225, 20+30*(displayRow)))
+                        displayRow += 1
+                        newLabels.append(Label(textParts[1], 22, 225, 20+30*(displayRow)))
+                    else:
+                        displayRow += 1
+                        newLabels.append(Label(self.question, 22, 225, 20+30*(displayRow)))
+                else:
+                    possibleTexts.append(row[0])
+                i += 1
+                displayRow += 1
+            friendsKnowledge = random.randint(0, 40)
+            print(friendsKnowledge)
+            friendsKnowledge -= questionIndex
+            print(friendsKnowledge)
+            if friendsKnowledge > 30:
+                newLabels.append(Label(possibleTexts[0] + self.correctAnswer, 22, 225, 275))
+            elif friendsKnowledge > 15:
+                newLabels.append(Label(possibleTexts[1] + self.correctAnswer, 22, 225, 275))
+            elif friendsKnowledge > 5:
+                newLabels.append(Label(possibleTexts[2], 22, 225, 275))
+            else:
+                import current_display
+                rnd = random.randint(0, 2)
+                currentAnswers = list()
+                for i in range(1, 5):
+                    currentAnswers.append(current_display.currentButtons[i].text)
+                while self.badAnswers[rnd] not in currentAnswers:
+                    rnd = random.randint(0, 2)
+                newLabels.append(Label(possibleTexts[1] + self.badAnswers[rnd], 22, 225, 275))
+        return newLabels
 
 
 def GeneralSetup():
@@ -328,6 +385,7 @@ def GameSetup():
     current_display.currentQuestions = LoadQuestions()
     current_display.currentQuestion = 0
     current_display.fiftyFiftyAvailable = True
+    current_display.friendHelpAvailable = True
     buttons = current_display.currentQuestions[0].ToButtons()
     playGameScreenDisplay = pygame.display.set_mode((windowWidth, windowHeight))
     playGameScreen = Screen(playGameScreenDisplay, background, buttons, PlayGameLabels())
