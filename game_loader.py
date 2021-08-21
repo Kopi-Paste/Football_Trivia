@@ -311,7 +311,8 @@ class Question:
                 remainingPercenatge -= percentage
         percentages.insert(self.correctAnswerIndex - 1, correctAnswerPercentage)
         plot.figure()
-        plot.bar(currentAnswers, percentages)
+        plot.rcParams['axes.facecolor'] = '#47ae38'
+        plot.bar(currentAnswers, percentages, color='white')
         plot.savefig(publicHelpBarChart, dpi=50)
         button = Button(publicHelpBarChart, 50, 750, 320, 240)
         os.remove(publicHelpBarChart)
