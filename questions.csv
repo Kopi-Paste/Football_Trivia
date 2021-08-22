@@ -27,7 +27,7 @@ Doplňte jméno hráče Realu Madrid: G____ Bale;Gareth;Gary;Griffith;Gerallt
 Doplňte jméno hráče Tottenhamu Hotspur: H_____ Kane;Harry;Henry;Hugh;Hubert
 Jak se jmenoval bývalý stadion Tottenhamu Hotspur?;White Hart Lane;Hotspur Stadium;Spurs Stadium;White Nest
 Jak se jmenoval stadion, na kterém hrával Arsenal FC své domácí zápasy až do roku 2006?;Highbury;Woolwich;White Hart Lane;Boleyn Ground
-Jak se jmenuje druhá nejprestižnější evropská fotbalová klubová soutěž?;Evropská liga;Pohár UEFA;Pohár Evropy;Evropský pohár
+Jak se jmenuje druhá nejprestižnější evropská klubová soutěž?;Evropská liga;Pohár UEFA;Pohár Evropy;Evropský pohár
 Jak se jmenuje dvojče Larse Bendera?;Sven;Felix;Liam;Jonas
 Jak se jmenuje dvojče Svena Bendera?;Lars;Felix;Liam;Jonas
 Jak se jmenuje fotbalový obránce Koulibaly?;Kalidou;Samuel;Clément;Douglas
@@ -292,7 +292,6 @@ Na jakém stadionu hraje své domácí zápasy fotbalový klub Valencia CF?;Mest
 Na jakém stadionu odehrála česká fotbalová reprezentace nejvíce utkání?;Generali Arena;Doosan Arena;Sinobo Stadium;Na Stínadlech
 Na kterém ostrově se narodil fotbalista Cristiano Ronaldo?;Madeira;Pico;Flores;Porto Santo
 Odchovancem kterého týmu je David De Gea?;Atlético Madrid;Manchester United;Real Madrid;FC Barcelona
-Se kterým koučem získala FC Barcelona svoji první trofej Ligy mistrů/Poháru mistrů evropských zemí?;Johan Cruyff;Louis van Gaal;Frank Rijkaard;Pep Guardiola
 Proti kterému týmu vstřelil Diego Maradona na MS 1986 gól rukou, známý jako Boží ruka?;Anglie;Brazílie;Francie;Uruguay
 S jakým míčem se odehrálo EURO 2004?;Adidas Roteiro;Adidas Questra;Adidas Fevernova;Adidas Teamgeist
 V jaké zemi hraje fotbalový klub CA Osasuna?;Španělsko;Portugalsko;Francie;Itálie
@@ -308,7 +307,7 @@ V jakém městě sídlí skotský klub Rangers FC?;Glasgow;Edinburgh;Dundee;Aber
 V jakém městě sídlí španělský fotbalový tým Real Sociedad?;San Sebastian;Bilbao;Sociedad;Madrid
 V jakém roce byl založen Real Madrid?;1902;1900;1896;1898
 V jakém roce se stali hráči Československa fotbalovými mistry Evropy?;1976;1970;1972;1974
-V jakém roce vyhráli reprezentanti Anglie Mistrovství světa ve fotbale?;1966;1954;1958;1962
+V jakém roce vyhráli reprezentanti Anglie MS ve fotbale?;1966;1954;1958;1962
 V jakém týmu hraje fotbalový útočník Fabio Quagliarella?;UC Sampdoria Janov;Cagliari Calcio;Udinese Calcio;Chievo Verona
 V jakém týmu hraje Pavel Kadeřábek?;TSG Hoffenheim;1. FC Augsburg;Werder Brémy;VfL Wolfsburg
 V jakém týmu hrál Marc-André ter Stegen před odchodem do FC Barcelona?;Borussia Mönchengladbach;VfB Stuttgart;Borussia Dortmund;Schalke 04
@@ -407,7 +406,7 @@ Kdo je historicky nejlepším střelcem PSG?;Edinson Cavani;Zlatan Ibrahimović;
 Kdo je historicky nejlepším střelcem rakouské fotbalové reprezentace?;Anton Polster;Johann Krankl;Johann Horvath;Erich Hof
 Kdo je historicky nejlepším střelcem slovenské fotbalové reprezentace?;Marek Hamšík;Stanislav Šesták;Róbert Vittek;Marek Mintál
 Kdo je historicky prvním držitelem Zlatého míče (Ballon d'Or)?;Stanley Matthews;Billy Wright;Raymond Kopa;Alfredo Di Stéfano
-Kdo je kapitánem AC Milan?;Alessio Romagnoli;Gianluigi Donnarumma;Zlatan Ibrahimović;Simon Kjær
+Kdo je kapitánem AC Milan?;Alessio Romagnoli;Rafael Leão;Zlatan Ibrahimović;Simon Kjær
 Kdo je kapitánem AS Roma?;Lorenzo Pellegrini;Bryan Cristante;Pau López;Gianluca Mancini
 Kdo je kapitánem Atalanty Bergamo?;Rafael Tolói;Remo Freuler;Marten de Roon;Josip Iličić
 Kdo je kapitánem Atlética Madrid?;Koke;Saúl;Jan Oblak;José Giménez
@@ -474,7 +473,7 @@ Kdo vyhrál Zlatý míč FIFA (FIFA Ballon d'Or) 2014?;Cristiano Ronaldo;Lionel 
 Kdo vyhrál Zlatý míč FIFA (FIFA Ballon d'Or) 2015?;Lionel Messi;Cristiano Ronaldo;Manuel Neuer;Neymar
 Ze kterého týmu odešel do zahraničí Milan Škriniar?;MŠK Žilina;Slovan Bratislava;MFK Ružomberok;FC Zlaté Moravce
 Kolik gólů nastřílel v sezóně La Ligy 2011/12 Lionel Messi?;50;42;46;48
-Kolik titulů v Lize mistrů/Poháru mistrů evropských zemí má celkem AC Milan?;7;3;5;9
+Kolik titulů v Lize mistrů/Poháru mistrů evropských zemí získalo AC Milan?;7;3;5;9
 Kolik týmu hraje francouzskou fotbalovou Ligue 1;20;16;18;24
 Kolikrát vyhrál Leeds United FA Cup?;1;0;2;3
 Kolikrát vyhrálo PSG francouzský titul?;9×;11×;7×;8×
@@ -591,7 +590,6 @@ Ve které zemi se Jan Koller se stal nejlepším ligovým střelcem?;Belgie;Čes
 Ve kterém evropském klubu působil fotbalový brankář René Higuita?;Real Valladolid;Eibar;Villarreal;Real Betis
 Ve kterém fotbalovém týmu hrál Leighton Baines před odchodem do Evertonu FC?;Wigan Athletic;Swindon Town;Reading;Blackburn Rovers
 Ve kterém klubu působí pouze hrači s baskickými kořeny?;Athletic Bilbao;SD Eibar;Real Sociedad;CA Osasuna
-Ve kterém klubu v současnosti působí srbský obránce Branislav Ivanović?;West Bromwich Albion;Fulham FC;Chelsea FC;Brentford FC
 Ve kterém klubu začínal svoji kariéru Eric Dier?;Sporting Lisabon;Newcastle United;Southampton;Benfica Lisabon
 Ve kterém městě se narodil Alex Král?;Košice;Praha;Teplice;Bratislava
 Ve kterém městě sídlí klub Everton FC?;Liverpool;Londýn;Newcastle upon Tyne;Manchester
@@ -628,7 +626,7 @@ Kdo je historicky nejlepším střelcem norské fotbalové reprezentace?;Jørgen
 Kdo je historicky nejlepším střelcem španělského fotbalového poháru Copa del Rey?;Telmo Zarra;László Kubala;Josep Samitier;Lionel Messi
 Kdo je kapitánem AS Monaco?;Wissam Ben Yedder;Cesc Fàbregas;Stevan Jovetić;Radosław Majecki
 Kdo je kapitánem Athleticu Bilbao?;Iker Muniain;Óscar de Marcos;Raúl García;Unai Simón
-Kdo je kapitánem Olympique Lyon?;Memphis Depay;Anthony Lopes;Léo Dubois;Houssem Aouar
+Kdo je kapitánem Olympique Lyon?;Léo Dubois;Anthony Lopes;Moussa Dembélé;Houssem Aouar
 Kdo je kapitánem Olympique Marseille?;Steve Mandanda;Florian Thauvin;Dimitri Payet;Kevin Strootman
 Kdo je kapitánem Realu Sociedad?;Asier Illarramendi;Mikel Oyarzabal;David Silva;Mikel Merino
 Kdo je kapitánem Villarreal CF?;Mario Gaspar;Vicente Iborra;Raúl Albiol;Sergio Asenjo

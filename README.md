@@ -23,6 +23,8 @@ operator – pro řazení skóre v tabulce
 os – k operaci se soubory
 random – k randomizaci pořadí odpovědí, nahraných otázek nebo výsledků nápověd
 
+Otázky byly vytvořeny v únoru 2021 a aktualizovány v srpnu 2021.
+
 Celý projekt je napsaný v angličtině, včetně UI, otázky jsou však napsány v češtině.
 
 
@@ -52,5 +54,7 @@ datetime - the saved scores also record the current date and time
 operator - for sorting scores in a table
 os - to operate with files
 random - to randomise the order of answers, loaded questions or results of hints
+
+Questions were created in February 2021 and updated in August 2021.
 
 The whole project is written in English, including the UI, but the default questions are written in Czech.
