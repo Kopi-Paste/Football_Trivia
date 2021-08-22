@@ -1,3 +1,8 @@
+# Author: Vojtěch Kopal
+# This project was created only to demonstrate my Python skills, it has no other use
+# Project uses following external libraries: pygame and matplotlib.pyplot
+# It also uses python modules csv, datetime, operator, os and random
+
 if __name__ == '__main__':
     import pygame
     import game_loader
