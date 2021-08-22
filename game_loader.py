@@ -295,9 +295,9 @@ class Question:  # Class of one question. Holds the question itself and its answ
             friends_knowledge -= question_index  # Gets lowered by current question index (the further we are,
             if friends_knowledge >= 30:           # the smaller chance of getting the correct answer)
                 new_labels.append(Label(possible_texts[0] + self.correctAnswer, 22, 225, 375))  # 30 - 39, 100 % correct
-            elif friends_knowledge >= 15:  # 15 - 29, friend says the correct answer, but isn't 100 % sure
+            elif friends_knowledge >= 10:  # 10 - 29, friend says the correct answer, but isn't 100 % sure
                 new_labels.append(Label(possible_texts[1] + self.correctAnswer, 22, 225, 375))
-            elif friends_knowledge >= 5:  # 5 - 14, friend doesn't know. Doesn't say anything useful
+            elif friends_knowledge >= 5:  # 5 - 9, friend doesn't know. Doesn't say anything useful
                 new_labels.append(Label(possible_texts[2], 22, 225, 375))
             else:  # Smaller than 5, friend says incorrect answer. Same sentence as in 15 - 29 scenario,
                 import current_display                                      # but with different answer
@@ -315,7 +315,7 @@ class Question:  # Class of one question. Holds the question itself and its answ
         import current_display
         current_answers = list()
         percentages = list()
-        correct_answer_percentage = random.randint((16 - (question_index / 2)) * 6, (98 - question_index * 2))
+        correct_answer_percentage = random.randint(85 - 4 * question_index, 100 - 3 * question_index)
         # Percentage to correct answer is given randomly. The boundaries are determined by question_index
         remaining_percentage = 100 - correct_answer_percentage  # The remaining percentage is split between other
         for i in range(1, 5):
