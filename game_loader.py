@@ -26,6 +26,7 @@ wideEmptyButtonFile = "assets/wideEmptyButton.png"
 confirmButtonFile = "assets/confirmButton.png"
 cancelButtonFile = "assets/cancelButton.png"
 backToMenuButtonFile = "assets/backToMenuButton.png"
+endGameButtonFile = "assets/endGameButton.png"
 fiftyFiftyButton = "assets/hintButtons/fiftyFifty.png"
 friendHelpButton = "assets/hintButtons/friendHelp.png"
 publicHelpButton = "assets/hintButtons/publicHelp.png"
@@ -219,7 +220,7 @@ class Question:
             self.answersInOrder[rnd2 + 1] = ""
         for i in range(5):
             buttons.append(ButtonWithText(emptyButtonFile, questionButtonCoordinates[i][0], questionButtonCoordinates[i][1], standardButtonWidth, standardButtonHeight, self.answersInOrder[i], 100, 33))
-        buttons.append(Button(backToMenuButtonFile, (windowWidth - standardButtonWidth) / 2, 800, standardButtonWidth,
+        buttons.append(Button(endGameButtonFile, (windowWidth - standardButtonWidth) / 2, 800, standardButtonWidth,
                               standardButtonHeight))
         import current_display
         if current_display.fiftyFiftyAvailable:
@@ -313,6 +314,8 @@ class Question:
         plot.figure()
         plot.rcParams['axes.facecolor'] = '#47ae38'
         plot.bar(currentAnswers, percentages, color='white')
+        plot.xticks(rotation=30)
+        plot.tight_layout()
         plot.savefig(publicHelpBarChart, dpi=50)
         button = Button(publicHelpBarChart, 50, 750, 320, 240)
         os.remove(publicHelpBarChart)
@@ -528,7 +531,6 @@ def LossGameScreenSetup(correctAnswer, score):
 
 
 def WinGameScreenSetup():
-    os.remove(publicHelpBarChart)
     import current_display
     winGameScreenDisplay = pygame.display.set_mode((windowWidth, windowHeight))
     winGameScreen = Screen(winGameScreenDisplay, background, EndGameButtons(), WinGameLabels())
